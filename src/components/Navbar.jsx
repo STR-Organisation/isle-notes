@@ -32,6 +32,8 @@ export const Navbar = () => {
         as="header"
         borderBottomWidth={'1.5px'}
         mb={'2'}
+        color="white"
+        bgColor="tomato"
       >
         <RouterLink href={'/'}>
           <Link ml={5} fontWeight="bold" fontSize={'2xl'}>
@@ -50,7 +52,7 @@ export const Navbar = () => {
               <MenuButton>
                 <ProfilePhoto mr={10} photoURL={user.photoURL} />
               </MenuButton>
-              <MenuList>
+              <MenuList color={'black'}>
                 <RouterLink to="/profile">
                   <MenuItem icon={<BsFillPersonFill />}>Account</MenuItem>
                 </RouterLink>
