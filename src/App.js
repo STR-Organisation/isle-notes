@@ -1,15 +1,17 @@
-import { Button } from '@chakra-ui/react';
 import React from 'react';
 import { Navbar } from './components/Navbar';
-import { signInWithGoogle } from './firebase-config';
+import { auth } from './firebase-config';
+import Home from './routes/Home';
+import SignIn from './components/SignIn';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 function App() {
+  const [user] = useAuthState(auth);
+
   return (
     <>
       <Navbar />
-      <Button colorScheme={'red'} onClick={signInWithGoogle}>
-        Sign In With Google
-      </Button>
+      {user ? <Home /> : <SignIn />}
     </>
   );
 }
