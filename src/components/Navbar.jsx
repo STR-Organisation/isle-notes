@@ -51,9 +51,9 @@ export const Navbar = () => {
                 <ProfilePhoto mr={10} photoURL={user.photoURL} />
               </MenuButton>
               <MenuList>
-                <MenuItem icon={<BsFillPersonFill />}>
-                  <RouterLink>My Account</RouterLink>
-                </MenuItem>
+                <RouterLink to="/profile">
+                  <MenuItem icon={<BsFillPersonFill />}>Account</MenuItem>
+                </RouterLink>
                 <MenuItem icon={<CgLogOut />} onClick={Logout}>
                   Logout
                 </MenuItem>
