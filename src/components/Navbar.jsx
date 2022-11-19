@@ -2,7 +2,7 @@ import { Flex, Link, Spacer } from '@chakra-ui/react';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../firebase-config';
+import { auth, signInWithGoogle } from '../firebase-config';
 import ProfilePhoto from './ProfilePhoto';
 
 export const Navbar = () => {
@@ -30,9 +30,9 @@ export const Navbar = () => {
         </RouterLink>
         <Spacer />
         {!user && (
-          <RouterLink href="/login">
-            <Link mr="5">Login</Link>
-          </RouterLink>
+          <Link mr="5" onClick={signInWithGoogle}>
+            Login
+          </Link>
         )}
         {user && (
           <>
