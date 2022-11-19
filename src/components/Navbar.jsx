@@ -1,9 +1,19 @@
-import { Flex, Link, Spacer } from '@chakra-ui/react';
+import {
+  Flex,
+  Link,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Spacer,
+} from '@chakra-ui/react';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, signInWithGoogle } from '../firebase-config';
 import ProfilePhoto from './ProfilePhoto';
+import { CgLogOut } from 'react-icons/cg';
+import { BsFillPersonFill } from 'react-icons/bs';
 
 export const Navbar = () => {
   const [user] = useAuthState(auth);
@@ -36,10 +46,19 @@ export const Navbar = () => {
         )}
         {user && (
           <>
-            <ProfilePhoto mr={5} photoURL={user.photoURL} />
-            <Link mr={5} onClick={Logout}>
-              Logout
-            </Link>
+            <Menu>
+              <MenuButton>
+                <ProfilePhoto mr={10} photoURL={user.photoURL} />
+              </MenuButton>
+              <MenuList>
+                <MenuItem icon={<BsFillPersonFill />}>
+                  <RouterLink>My Account</RouterLink>
+                </MenuItem>
+                <MenuItem icon={<CgLogOut />} onClick={Logout}>
+                  Logout
+                </MenuItem>
+              </MenuList>
+            </Menu>
           </>
         )}
       </Flex>
