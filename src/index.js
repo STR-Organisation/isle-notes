@@ -5,6 +5,7 @@ import App from './App';
 import theme from './theme';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ProfilePage from './routes/ProfilePage';
+import Notes from './routes/Notes';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: '/profile',
     element: <ProfilePage />,
+  },
+  {
+    path: '/notes',
+    element: <Notes />,
   },
 ]);
 
