@@ -19,7 +19,7 @@ import {
   doc,
   getDocs,
 } from 'firebase/firestore';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import CustomCheckbox from '../components/CustomCheckbox';

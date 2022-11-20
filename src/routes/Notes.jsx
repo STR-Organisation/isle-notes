@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar } from '../components/Navbar';
 import SubjectDisplay from '../components/SubjectDisplay';
-import { Flex, Heading, Box } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../firebase-config';
 import { query, getDocs, where, collection } from 'firebase/firestore';
