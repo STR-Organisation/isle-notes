@@ -6,21 +6,35 @@ import {
   MenuItem,
   MenuList,
   Spacer,
+  Spinner,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, signInWithGoogle } from '../firebase-config';
+import { auth, signInWithGoogle, db } from '../firebase-config';
 import ProfilePhoto from './ProfilePhoto';
 import { CgLogOut } from 'react-icons/cg';
 import { BsFillPersonFill } from 'react-icons/bs';
+import { collection, query, getDocs, where } from 'firebase/firestore';
+import { ALL_SUBJECT_ROUTES } from '../utils';
 
 export const Navbar = () => {
   const [user] = useAuthState(auth);
+  const [profile, setProfile] = useState();
+  const userProfileRef = collection(db, 'userProfile');
 
   const Logout = () => {
     auth.signOut();
   };
+
+  useEffect(() => {
+    const getData = async () => {
+      const q = query(userProfileRef, where('uid', '==', user.uid));
+      const data = await getDocs(q);
+      setProfile(data.docs.map(doc => ({ ...doc.data() })));
+    };
+    getData();
+  }, []);
 
   return (
     <>
@@ -48,6 +62,27 @@ export const Navbar = () => {
         )}
         {user && (
           <>
+            {profile ? (
+              <Menu>
+                <MenuButton fontWeight={'semibold'} mr={5}>
+                  My Subjects
+                </MenuButton>
+                <MenuList color="black">
+                  {profile[0]?.classes.map((e, idx) => {
+                    return (
+                      <RouterLink
+                        key={idx}
+                        to={`/notes/${ALL_SUBJECT_ROUTES[e]}`}
+                      >
+                        <MenuItem>{e}</MenuItem>
+                      </RouterLink>
+                    );
+                  })}
+                </MenuList>
+              </Menu>
+            ) : (
+              <Spinner mr={5} />
+            )}
             <Menu>
               <MenuButton>
                 <ProfilePhoto mr={10} photoURL={user.photoURL} />
