@@ -1,9 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Flex, Heading, Box } from '@chakra-ui/react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, db } from '../firebase-config';
-import { query, getDocs, where, collection } from 'firebase/firestore';
-import CenteredSpinner from './CenteredSpinner';
+import React from 'react';
+import { Flex, Heading } from '@chakra-ui/react';
 
 export default function SubjectDisplay({ title, image }) {
   return (
