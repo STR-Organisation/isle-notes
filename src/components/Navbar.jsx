@@ -16,7 +16,7 @@ import ProfilePhoto from './ProfilePhoto';
 import { CgLogOut } from 'react-icons/cg';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { collection, query, getDocs, where } from 'firebase/firestore';
-import { ALL_SUBJECT_ROUTES } from '../utils';
+import { SUBJECT_SHORTHAND } from '../utils';
 
 export const Navbar = () => {
   const [user] = useAuthState(auth);
@@ -72,7 +72,7 @@ export const Navbar = () => {
                     return (
                       <RouterLink
                         key={idx}
-                        to={`/notes/${ALL_SUBJECT_ROUTES[e]}`}
+                        to={`/notes/${SUBJECT_SHORTHAND[e]}`}
                       >
                         <MenuItem>{e}</MenuItem>
                       </RouterLink>
