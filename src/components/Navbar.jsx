@@ -9,33 +9,27 @@ import {
   Spacer,
   Spinner,
 } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { auth, signInWithGoogle, db } from '../firebase-config';
 import ProfilePhoto from './ProfilePhoto';
 import { CgLogOut } from 'react-icons/cg';
 import { BsFillPersonFill } from 'react-icons/bs';
-import { collection, query, getDocs, where } from 'firebase/firestore';
+import { collection, query, where } from 'firebase/firestore';
 import { SUBJECT_SHORTHAND } from '../utils';
 
 export const Navbar = () => {
   const [user] = useAuthState(auth);
-  const [profile, setProfile] = useState();
   const userProfileRef = collection(db, 'userProfile');
+  const q = query(userProfileRef, where('uid', '==', user.uid));
+
+  const [profile] = useCollectionData(q, { idField: 'id' });
 
   const Logout = () => {
     auth.signOut();
   };
-
-  useEffect(() => {
-    const getData = async () => {
-      const q = query(userProfileRef, where('uid', '==', user.uid));
-      const data = await getDocs(q);
-      setProfile(data.docs.map(doc => ({ ...doc.data() })));
-    };
-    getData();
-  }, [user]);
 
   return (
     <>
