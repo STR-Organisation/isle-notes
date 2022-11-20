@@ -34,7 +34,7 @@ export const Navbar = () => {
       setProfile(data.docs.map(doc => ({ ...doc.data() })));
     };
     getData();
-  }, []);
+  }, [user]);
 
   return (
     <>
