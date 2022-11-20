@@ -3,6 +3,7 @@ import {
   Link,
   Menu,
   MenuButton,
+  MenuDivider,
   MenuItem,
   MenuList,
   Spacer,
@@ -78,6 +79,10 @@ export const Navbar = () => {
                       </RouterLink>
                     );
                   })}
+                  <MenuDivider />
+                  <RouterLink to="/notes">
+                    <MenuItem>All Subjects</MenuItem>
+                  </RouterLink>
                 </MenuList>
               </Menu>
             ) : (
