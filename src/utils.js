@@ -44,4 +44,35 @@ export const SUBJECT_PICTURES = {
   tok: 'https://miro.medium.com/max/1400/1*fm6m4T3SllEZnbOxWJQ49w.jpeg',
   hoa: 'https://ichef.bbci.co.uk/images/ic/1920x1080/p08v6mlm.jpg',
   ess: 'https://collegerealitycheck.com/wp-content/uploads/environmental-science-1932365063-1024x768.jpg',
+  'visual-arts':
+    'https://www.onlinechristiancolleges.com/wp-content/uploads/2021/03/5-Careers-in-the-Visual-Arts-2.jpg',
+  business:
+    'https://www.incimages.com/uploaded_files/image/1920x1080/getty_180152187_970679970450042_64007.jpg',
+  'lang-lit':
+    'https://www.siue.edu/marketingadmin/headerimg/pll-header-image.jpg',
+  japanese:
+    'https://www.esl-languages.com/sites/default/files/country/esl-japan-language-stay-hero.jpg',
+  chinese:
+    'https://asiasociety.org/sites/default/files/styles/1200w/public/C/calligraphy.jpg',
+  'math-sl': 'https://csunshinetoday.csun.edu/wp-content/uploads/Math4-web.jpg',
+  'math-hl':
+    'https://images.squarespace-cdn.com/content/v1/586ec16bb3db2b558ebfec60/694329ee-2cd8-4786-9406-77ca00f30b07/math-header.jpg?format=1000w',
+  bio: 'https://static.scientificamerican.com/sciam/cache/file/DAD8CC8A-45F6-4740-B67DFE1C7D2929AE_source.jpg?w=590&h=800&5C2EF115-DD07-422A-8F1929803993B6F7',
+  phys: 'https://www.environmentalscience.org/wp-content/uploads/2018/08/physics-640x416.jpg',
+  film: 'https://college.unc.edu/wp-content/uploads/sites/1280/2020/05/film1.jpg',
+  'history-2':
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqvqe7csKWQ4nzAgbWm8eX76aImBIev9kjzfjoKF1aM3yP2BZYCZhkgAPcdiLmQFv176I&usqp=CAU',
+  'world-religions':
+    'https://www.reviewofreligions.org/wp-content/uploads/2021/01/world-religion-small-shutterstock_190143092-copy.jpeg',
+  psych:
+    'https://www.american.edu/cas/psychology/images/colorful-marketing-brain-psych-mob-1710.jpg',
+  theatre:
+    'https://www.theatreinparis.com/uploads/images/article/la-nouvelle-seine-petits-theatres-paris-header.jpg',
+  cs: 'https://images1.content-hci.com/commimg/myhotcourses/blog/post/myhc_89683.jpg',
+  french:
+    'https://www.clozemaster.com/blog/wp-content/uploads/2017/11/How-Long-Does-it-Take-to-Learn-French.jpg',
+  spanish:
+    'https://www.fluentin3months.com/wp-content/uploads/2021/09/conversational-spanish-1.jpg',
+  'pers-prof':
+    'https://www.livecareer.com/wp-content/uploads/2019/06/resume-job-skills-values.jpg',
 };
