@@ -8,18 +8,19 @@ import {
   Divider,
   Select,
   Button,
+  Spinner,
 } from '@chakra-ui/react';
 import {
   addDoc,
   collection,
-  getDoc,
   query,
   updateDoc,
   where,
   doc,
   getDocs,
 } from 'firebase/firestore';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import CustomCheckbox from '../components/CustomCheckbox';
 import { Navbar } from '../components/Navbar';
 import { auth, db } from '../firebase-config';
@@ -59,39 +60,48 @@ const allClasses = [
 
 export default function ProfilePage() {
   const [classes, setClasses] = useState([]);
+  const [user] = useAuthState(auth);
+  const [profile, setProfile] = useState([]);
 
   const firstNameRef = useRef();
   const lastNameRef = useRef();
   const pathRef = useRef();
   const userProfileRef = collection(db, 'userProfile');
 
-  const q = query(userProfileRef, where('uid', '==', auth.currentUser.uid));
-
   const updateUser = async () => {
     const data = {
       firstName: firstNameRef.current.value,
       lastName: lastNameRef.current.value,
       path: pathRef.current.value,
-      classes,
-      uid: auth.currentUser.uid,
+      classes: [...classes, ...profile[0].classes],
+      uid: user.uid,
     };
 
-    console.log(auth.currentUser.uid);
+    console.log(data);
+    const q = query(userProfileRef, where('uid', '==', user.uid));
 
     const snap = await getDocs(q);
 
-    let done = false;
+    if (snap.docs.length === 0) {
+      await addDoc(userProfileRef, data);
+      return;
+    }
 
     snap.forEach(async d => {
+      console.log(data);
       const userDoc = doc(db, 'userProfile', d.id);
       await updateDoc(userDoc, data);
-      done = true;
     });
-
-    if (!done) {
-      await addDoc(userProfileRef, data);
-    }
   };
+
+  useEffect(() => {
+    const getData = async () => {
+      const q = query(userProfileRef, where('uid', '==', user.uid));
+      const data = await getDocs(q);
+      setProfile(data.docs.map(doc => ({ ...doc.data() })));
+    };
+    getData();
+  }, []);
 
   return (
     <>
@@ -110,7 +120,7 @@ export default function ProfilePage() {
 
           <HStack>
             <Text fontSize={'sm'} w={'10ch'}>
-              First{' '}
+              First
             </Text>
             <Input
               maxW={'20vw'}
@@ -123,7 +133,7 @@ export default function ProfilePage() {
           </HStack>
           <HStack>
             <Text fontSize={'sm'} w={'10ch'}>
-              Last{' '}
+              Last
             </Text>
             <Input
               maxW={'20vw'}
@@ -136,7 +146,7 @@ export default function ProfilePage() {
           </HStack>
           <HStack>
             <Text fontSize={'sm'} w={'10ch'}>
-              Email{' '}
+              Email
             </Text>
             <Input
               maxW={'20vw'}
@@ -161,8 +171,13 @@ export default function ProfilePage() {
             <Select
               fontSize={'sm'}
               size="sm"
-              defaultValue={'none'}
               ref={pathRef}
+              value={profile[0]?.path}
+              onChange={e => {
+                const temp = profile[0];
+                temp.path = pathRef.current.value;
+                setProfile([temp]);
+              }}
             >
               <option value={'dp'}>IB Diploma Path</option>
               <option value={'cp'}>IB Career Path</option>
@@ -185,6 +200,7 @@ export default function ProfilePage() {
                         value={classes}
                         option={c}
                         key={(idx + 1) * idx2}
+                        checked={profile[0]?.classes.includes(c)}
                       />
                     );
                   })}
