@@ -8,6 +8,7 @@ import {
   Divider,
   Select,
   Button,
+  Spinner,
 } from '@chakra-ui/react';
 import {
   addDoc,
@@ -60,7 +61,7 @@ const allClasses = [
 export default function ProfilePage() {
   const [classes, setClasses] = useState([]);
   const [user] = useAuthState(auth);
-  const [profile, setProfile] = useState([]);
+  const [profile, setProfile] = useState(undefined);
 
   const firstNameRef = useRef();
   const lastNameRef = useRef();
@@ -68,13 +69,18 @@ export default function ProfilePage() {
   const userProfileRef = collection(db, 'userProfile');
 
   const updateUser = async () => {
+    console.log(profile);
     const data = {
       firstName: firstNameRef.current.value,
       lastName: lastNameRef.current.value,
       path: pathRef.current.value,
-      classes: [...classes, ...profile[0].classes],
+      classes: [...classes],
       uid: user.uid,
     };
+
+    if (profile.length !== 0) {
+      data.classes.push(...profile[0].classes);
+    }
 
     console.log(data);
     const q = query(userProfileRef, where('uid', '==', user.uid));
@@ -105,114 +111,122 @@ export default function ProfilePage() {
   return (
     <>
       <Navbar />
-      <Flex w="100%" align={'center'} flexDir="column">
-        <Heading fontSize={'3xl'}>
-          Welcome, {auth.currentUser.displayName}!
-        </Heading>
-
-        <Divider w={'40vw'} mt={4} />
-
-        <VStack align={'flex-start'} mt={2} w={'40vw'}>
-          <Heading fontSize={'xl'} color="tomato">
-            Basic Info
+      {profile ? (
+        <Flex w="100%" align={'center'} flexDir="column">
+          <Heading fontSize={'3xl'}>
+            Welcome, {auth.currentUser.displayName}!
           </Heading>
 
-          <HStack>
-            <Text fontSize={'sm'} w={'10ch'}>
-              First
-            </Text>
-            <Input
-              maxW={'20vw'}
-              size="sm"
-              fontSize={'sm'}
-              placeholder="Name"
-              defaultValue={getFirstName(auth.currentUser.displayName)}
-              ref={firstNameRef}
-            />
-          </HStack>
-          <HStack>
-            <Text fontSize={'sm'} w={'10ch'}>
-              Last
-            </Text>
-            <Input
-              maxW={'20vw'}
-              size="sm"
-              fontSize={'sm'}
-              placeholder="Name"
-              defaultValue={getLastName(auth.currentUser.displayName)}
-              ref={lastNameRef}
-            />
-          </HStack>
-          <HStack>
-            <Text fontSize={'sm'} w={'10ch'}>
-              Email
-            </Text>
-            <Input
-              maxW={'20vw'}
-              size="sm"
-              fontSize={'sm'}
-              value={auth.currentUser.email}
-              disabled={true}
-            />
-          </HStack>
-        </VStack>
+          <Divider w={'40vw'} mt={4} />
 
-        <Divider w={'40vw'} mt={2} mb={2} />
+          <VStack align={'flex-start'} mt={2} w={'40vw'}>
+            <Heading fontSize={'xl'} color="tomato">
+              Basic Info
+            </Heading>
 
-        <VStack w={'40vw'} mt={2} align="flex-start">
-          <Heading fontSize={'xl'} color="tomato">
-            IB Information
-          </Heading>
-          <HStack>
-            <Text fontWeight={'semibold'} w={'10ch'}>
-              IB Path
+            <HStack>
+              <Text fontSize={'sm'} w={'10ch'}>
+                First
+              </Text>
+              <Input
+                maxW={'20vw'}
+                size="sm"
+                fontSize={'sm'}
+                placeholder="Name"
+                defaultValue={getFirstName(auth.currentUser.displayName)}
+                ref={firstNameRef}
+              />
+            </HStack>
+            <HStack>
+              <Text fontSize={'sm'} w={'10ch'}>
+                Last
+              </Text>
+              <Input
+                maxW={'20vw'}
+                size="sm"
+                fontSize={'sm'}
+                placeholder="Name"
+                defaultValue={getLastName(auth.currentUser.displayName)}
+                ref={lastNameRef}
+              />
+            </HStack>
+            <HStack>
+              <Text fontSize={'sm'} w={'10ch'}>
+                Email
+              </Text>
+              <Input
+                maxW={'20vw'}
+                size="sm"
+                fontSize={'sm'}
+                value={auth.currentUser.email}
+                disabled={true}
+              />
+            </HStack>
+          </VStack>
+
+          <Divider w={'40vw'} mt={2} mb={2} />
+
+          <VStack w={'40vw'} mt={2} align="flex-start">
+            <Heading fontSize={'xl'} color="tomato">
+              IB Information
+            </Heading>
+            <HStack>
+              <Text fontWeight={'semibold'} w={'10ch'}>
+                IB Path
+              </Text>
+              <Select
+                fontSize={'sm'}
+                size="sm"
+                ref={pathRef}
+                value={profile[0]?.path}
+                onChange={e => {
+                  const temp = profile[0];
+                  temp.path = pathRef.current.value;
+                  setProfile([temp]);
+                }}
+              >
+                <option value={'dp'}>IB Diploma Path</option>
+                <option value={'cp'}>IB Career Path</option>
+                <option value={'none'}>None</option>
+              </Select>
+            </HStack>
+
+            <Text fontWeight={'semibold'} w={'10ch'} mt={4}>
+              My Classes
             </Text>
-            <Select
-              fontSize={'sm'}
-              size="sm"
-              ref={pathRef}
-              value={profile[0]?.path}
-              onChange={e => {
-                const temp = profile[0];
-                temp.path = pathRef.current.value;
-                setProfile([temp]);
-              }}
-            >
-              <option value={'dp'}>IB Diploma Path</option>
-              <option value={'cp'}>IB Career Path</option>
-              <option value={'none'}>None</option>
-            </Select>
-          </HStack>
 
-          <Text fontWeight={'semibold'} w={'10ch'} mt={4}>
-            My Classes
-          </Text>
-
-          <HStack>
-            {allClasses.map((e, idx) => {
-              return (
-                <VStack key={idx} align="flex-start">
-                  {e.map((c, idx2) => {
-                    return (
-                      <CustomCheckbox
-                        onChange={setClasses}
-                        value={classes}
-                        option={c}
-                        key={(idx + 1) * idx2}
-                        checked={profile[0]?.classes.includes(c)}
-                      />
-                    );
-                  })}
-                </VStack>
-              );
-            })}
-          </HStack>
-        </VStack>
-        <Divider w={'40vw'} mt={2} />
-        <Button onClick={updateUser} colorScheme={'red'} mt={8}>
-          Update Information
-        </Button>
-      </Flex>
+            <HStack>
+              {allClasses.map((e, idx) => {
+                return (
+                  <VStack key={idx} align="flex-start">
+                    {e.map((c, idx2) => {
+                      return (
+                        <CustomCheckbox
+                          onChange={setClasses}
+                          value={classes}
+                          option={c}
+                          key={(idx + 1) * idx2}
+                          checked={profile[0]?.classes.includes(c)}
+                        />
+                      );
+                    })}
+                  </VStack>
+                );
+              })}
+            </HStack>
+          </VStack>
+          <Divider w={'40vw'} mt={2} />
+          <Button onClick={updateUser} colorScheme={'red'} mt={8}>
+            Update Information
+          </Button>
+        </Flex>
+      ) : (
+        <>
+          <Flex w={'100%'} justify="center">
+            <Spinner color="tomato" />
+          </Flex>
+        </>
+      )}
     </>
   );
 }
