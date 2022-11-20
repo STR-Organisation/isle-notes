@@ -21,6 +21,7 @@ import {
 } from 'firebase/firestore';
 import React, { useRef, useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 import CustomCheckbox from '../components/CustomCheckbox';
 import { Navbar } from '../components/Navbar';
 import { auth, db } from '../firebase-config';
@@ -59,30 +60,33 @@ const allClasses = [
 ];
 
 export default function ProfilePage() {
-  const [classes, setClasses] = useState([]);
+  const classes = useRef([]);
   const [user] = useAuthState(auth);
-  const [profile, setProfile] = useState(undefined);
 
   const firstNameRef = useRef();
   const lastNameRef = useRef();
   const pathRef = useRef();
   const userProfileRef = collection(db, 'userProfile');
 
+  const q = query(userProfileRef, where('uid', '==', user.uid));
+  const [profile] = useCollectionData(q, {
+    idField: 'id',
+  });
+
   const updateUser = async () => {
-    console.log(profile);
+    const uniqueClasses = [...new Set(classes.current)];
+    console.log(uniqueClasses);
+
     const data = {
       firstName: firstNameRef.current.value,
       lastName: lastNameRef.current.value,
       path: pathRef.current.value,
-      classes: [...classes],
+      classes: uniqueClasses,
       uid: user.uid,
     };
 
-    if (profile.length !== 0) {
-      data.classes.push(...profile[0].classes);
-    }
+    console.log(classes.current);
 
-    console.log(data);
     const q = query(userProfileRef, where('uid', '==', user.uid));
 
     const snap = await getDocs(q);
@@ -93,20 +97,20 @@ export default function ProfilePage() {
     }
 
     snap.forEach(async d => {
-      console.log(data);
       const userDoc = doc(db, 'userProfile', d.id);
       await updateDoc(userDoc, data);
     });
   };
 
-  useEffect(() => {
-    const getData = async () => {
-      const q = query(userProfileRef, where('uid', '==', user.uid));
-      const data = await getDocs(q);
-      setProfile(data.docs.map(doc => ({ ...doc.data() })));
-    };
-    getData();
-  }, []);
+  const addClass = cls => {
+    classes.current = [...classes.current, cls];
+    console.log(classes.current);
+  };
+
+  const removeClass = cls => {
+    classes.current = classes.current.filter(x => x !== cls);
+    console.log(classes.current);
+  };
 
   return (
     <>
@@ -178,12 +182,7 @@ export default function ProfilePage() {
                 fontSize={'sm'}
                 size="sm"
                 ref={pathRef}
-                value={profile[0]?.path}
-                onChange={e => {
-                  const temp = profile[0];
-                  temp.path = pathRef.current.value;
-                  setProfile([temp]);
-                }}
+                defaultValue={profile[0]?.path}
               >
                 <option value={'dp'}>IB Diploma Path</option>
                 <option value={'cp'}>IB Career Path</option>
@@ -200,13 +199,21 @@ export default function ProfilePage() {
                 return (
                   <VStack key={idx} align="flex-start">
                     {e.map((c, idx2) => {
+                      const included = profile[0]?.classes.includes(c);
+
+                      if (included) {
+                        if (!classes.current.includes(c)) {
+                          classes.current = [...classes.current, c];
+                        }
+                      }
+
                       return (
                         <CustomCheckbox
-                          onChange={setClasses}
-                          value={classes}
+                          add={addClass}
+                          remove={removeClass}
                           option={c}
                           key={(idx + 1) * idx2}
-                          checked={profile[0]?.classes.includes(c)}
+                          checked={included}
                         />
                       );
                     })}

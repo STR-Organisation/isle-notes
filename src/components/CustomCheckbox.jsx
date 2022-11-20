@@ -1,15 +1,15 @@
 import { Checkbox } from '@chakra-ui/react';
 import React from 'react';
 
-export default function CustomCheckbox({ option, onChange, value, checked }) {
+export default function CustomCheckbox({ option, checked, add, remove }) {
   return (
     <Checkbox
       onChange={e => {
         if (e.target.checked) {
-          onChange([option, ...value]);
+          add(option);
           return;
         }
-        onChange(value.filter(item => item !== option));
+        remove(option);
       }}
       defaultChecked={checked}
     >
