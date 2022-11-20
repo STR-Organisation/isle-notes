@@ -38,8 +38,7 @@ export const SUBJECT_PICTURES = {
     'https://www.cato.org/sites/cato.org/files/styles/optimized/public/2021-01/GettyImages-1127256104%20%281%29.jpg?itok=fJ2uAJCi',
   'exercise-science':
     'https://www.unco.edu/nhs/sport-exercise-science/images/exsci5.jpg',
-  chemistry:
-    'https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-course-photos.s3.amazonaws.com/fa/6926005ea411e490ff8d4c5d4ff426/chemistry_logo.png?auto=format%2Ccompress&dpr=1',
+  chem: 'https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-course-photos.s3.amazonaws.com/fa/6926005ea411e490ff8d4c5d4ff426/chemistry_logo.png?auto=format%2Ccompress&dpr=1',
   music:
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGskxL9y6zCAAptr8DB1Ne-jtfa8XKvwLiAXm4fhzoo9MrhQikMWAnJshI0snmi28flns&usqp=CAU',
   tok: 'https://miro.medium.com/max/1400/1*fm6m4T3SllEZnbOxWJQ49w.jpeg',
