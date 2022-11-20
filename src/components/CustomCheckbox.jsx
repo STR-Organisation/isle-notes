@@ -11,7 +11,7 @@ export default function CustomCheckbox({ option, onChange, value, checked }) {
         }
         onChange(value.filter(item => item !== option));
       }}
-      disabled={checked}
+      defaultChecked={checked}
     >
       {option}
     </Checkbox>
