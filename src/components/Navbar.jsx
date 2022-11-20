@@ -35,7 +35,7 @@ export const Navbar = () => {
         color="white"
         bgColor="tomato"
       >
-        <RouterLink href={'/'}>
+        <RouterLink to={'/'}>
           <Link ml={5} fontWeight="bold" fontSize={'2xl'}>
             All-in-All
           </Link>
