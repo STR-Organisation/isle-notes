@@ -1,8 +1,7 @@
 import React from 'react';
-import { Navbar } from './components/Navbar';
-import { auth } from './firebase-config';
-import Home from './routes/Home';
-import SignIn from './components/SignIn';
+import { auth } from './firebase-config.js';
+import Home from './routes/Home.jsx';
+import SignIn from './components/SignIn.jsx';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 function App() {
