@@ -76,3 +76,7 @@ export const SUBJECT_PICTURES = {
   'pers-prof':
     'https://www.livecareer.com/wp-content/uploads/2019/06/resume-job-skills-values.jpg',
 };
+
+export const getKeyByValue = (object, value) => {
+  return Object.keys(object).find(key => object[key] === value);
+};
