@@ -8,12 +8,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 function App() {
   const [user] = useAuthState(auth);
 
-  return (
-    <>
-      <Navbar />
-      {user ? <Home /> : <SignIn />}
-    </>
-  );
+  return <>{user ? <Home /> : <SignIn />}</>;
 }
 
 export default App;
