@@ -40,7 +40,6 @@ export const Navbar = () => {
         position="sticky"
         as="header"
         borderBottomWidth={'1.5px'}
-        mb={'2'}
         color="white"
         bgColor="tomato"
       >
