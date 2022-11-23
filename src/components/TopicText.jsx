@@ -6,9 +6,17 @@ export default function TopicText({ children }) {
     <Text
       cursor={'pointer'}
       fontSize={'lg'}
-      color="white"
+      color="black"
       fontWeight={'semibold'}
-      mt={2}
+      mt={4}
+      paddingBlock="4"
+      paddingLeft={4}
+      paddingRight={4}
+      _hover={{
+        bg: 'tomato',
+        color: 'white',
+      }}
+      borderRadius="lg"
     >
       {children}
     </Text>
