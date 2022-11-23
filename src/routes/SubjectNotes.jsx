@@ -1,4 +1,4 @@
-import { Flex, Grid, GridItem, Heading, Text } from '@chakra-ui/react';
+import { Flex, Heading, Box } from '@chakra-ui/react';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
@@ -30,18 +30,21 @@ export default function SubjectNotes() {
       <Flex w="100%" justify={'center'}>
         <Heading>{fullName}</Heading>
       </Flex>
-      <Grid h="85vw" templateColumns="repeat(5, 1fr)" mt={2} gap={2}>
-        <GridItem colSpan={1} bg="tomato">
-          <Flex w="100%" h="100%" flexDir={'column'} align="center">
-            {sampleTopics.map((e, idx) => {
-              return <TopicText>{e}</TopicText>;
-            })}
-          </Flex>
-        </GridItem>
-        <GridItem colSpan={4} fontSize="xl">
-          <ReactMarkdown children={markdown} remarkPlugins={[remarkGfm]} />
-        </GridItem>
-      </Grid>
+      <Flex
+        borderRight="1px"
+        borderRightColor={'gray.200'}
+        w={{ base: 'full', md: 60 }}
+        pos="fixed"
+        h="full"
+        borderTop={'1px'}
+        borderTopColor={'gray.200'}
+        align="center"
+        flexDir={'column'}
+      >
+        {sampleTopics.map((e, idx) => {
+          return <TopicText key={idx}>{e}</TopicText>;
+        })}
+      </Flex>
     </>
   );
 }
