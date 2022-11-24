@@ -12,6 +12,7 @@ import {
   Textarea,
   VStack,
   Box,
+  useToast,
 } from '@chakra-ui/react';
 import { SUBJECT_SHORTHAND } from '../utils';
 import { addDoc, collection } from 'firebase/firestore';
@@ -20,6 +21,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import Markdown from '../components/Markdown';
 
 export default function ProposeNotes() {
+  const toast = useToast();
+
   const proposalRef = collection(db, 'proposals');
 
   const classRef = useRef();
@@ -29,6 +32,10 @@ export default function ProposeNotes() {
   const [user] = useAuthState(auth);
 
   const propose = async () => {
+    if (!isValid()) {
+      return;
+    }
+
     const data = {
       uid: user.uid,
       displayName: user.displayName,
@@ -40,6 +47,41 @@ export default function ProposeNotes() {
     console.log(data);
 
     await addDoc(proposalRef, data);
+
+    toast({
+      position: 'bottom-left',
+      title: 'Success',
+      status: 'success',
+      description: 'Proposal submitted.',
+      duration: 3000,
+    });
+  };
+
+  const isValid = () => {
+    let valid = true;
+    let message = '';
+    if (classRef.current.value === '') {
+      valid = false;
+      message = 'Please fill out the `class` field';
+    } else if (topicRef.current.value === '') {
+      valid = false;
+      message = 'Please fill out the `topic` field';
+    } else if (!note) {
+      valid = false;
+      message = 'Please fill out the `note` field';
+    }
+
+    if (!valid) {
+      toast({
+        position: 'bottom-left',
+        title: 'Invalid Input',
+        description: message,
+        status: 'error',
+        duration: 3000,
+      });
+    }
+
+    return valid;
   };
 
   return (
