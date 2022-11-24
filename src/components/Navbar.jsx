@@ -23,7 +23,11 @@ import { SUBJECT_SHORTHAND } from '../utils';
 export const Navbar = () => {
   const [user] = useAuthState(auth);
   const userProfileRef = collection(db, 'userProfile');
-  const q = query(userProfileRef, where('uid', '==', user.uid));
+
+  let q;
+  if (user) {
+    q = query(userProfileRef, where('uid', '==', user.uid));
+  }
 
   const [profile] = useCollectionData(q, { idField: 'id' });
 
