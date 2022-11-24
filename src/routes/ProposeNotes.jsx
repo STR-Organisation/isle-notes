@@ -55,6 +55,14 @@ export default function ProposeNotes() {
       description: 'Proposal submitted.',
       duration: 3000,
     });
+
+    clearInput();
+  };
+
+  const clearInput = () => {
+    setNote('');
+    topicRef.current.value = '';
+    classRef.current.value = '';
   };
 
   const isValid = () => {
@@ -128,6 +136,7 @@ export default function ProposeNotes() {
               w="50vw"
               h="30vh"
               onChange={e => setNote(e.target.value)}
+              value={note}
             />
             <Box>
               <Markdown>{note}</Markdown>
