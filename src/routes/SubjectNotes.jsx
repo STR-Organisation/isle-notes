@@ -7,6 +7,9 @@ import ReactMarkdown from 'react-markdown';
 import TopicText from '../components/TopicText';
 import remarkGfm from 'remark-gfm';
 import './SubjectNotes.css';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 
 export default function SubjectNotes() {
   const { subject } = useParams();
@@ -14,10 +17,15 @@ export default function SubjectNotes() {
   const fullName = getKeyByValue(SUBJECT_SHORTHAND, subject);
 
   const markdown = `
-  # Topic 1
-  This is *some* **markdown**.
-  ~~Welcome~~ to [https://reactjs.com](https://google.com)
-  $x^2$
+  
+  ### Definitely ${fullName}
+
+  *Testing* ~~my~~ our **markdown**:
+
+  $$s = ut + \\frac{1}{2}at^2$$
+
+  $$\\hat{v} = \\begin{pmatrix}1 \\\\ 3\\end{pmatrix}$$
+
   `;
 
   const sampleTopics = [
@@ -49,7 +57,11 @@ export default function SubjectNotes() {
           })}
         </Flex>
         <div class="main">
-          <ReactMarkdown children={markdown} remarkPlugins={[remarkGfm]} />
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm, remarkMath]}
+            rehypePlugins={rehypeKatex}
+            children={markdown}
+          />
         </div>
       </Flex>
     </>
