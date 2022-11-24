@@ -118,7 +118,12 @@ export default function ProfilePage() {
       {profile ? (
         <Flex w="100%" align={'center'} flexDir="column">
           <Heading fontSize={'3xl'}>
-            Welcome, {auth.currentUser.displayName}!
+            Welcome,{' '}
+            {profile[0].firstName === undefined ||
+            profile[0].lastName === undefined
+              ? auth.currentUser.displayName
+              : `${profile[0].firstName} ${profile[0].lastName}`}
+            !
           </Heading>
 
           <Divider w={'40vw'} mt={4} />
@@ -137,7 +142,10 @@ export default function ProfilePage() {
                 size="sm"
                 fontSize={'sm'}
                 placeholder="Name"
-                defaultValue={getFirstName(auth.currentUser.displayName)}
+                defaultValue={
+                  profile[0].firstName ??
+                  getFirstName(auth.currentUser.displayName)
+                }
                 ref={firstNameRef}
               />
             </HStack>
@@ -150,7 +158,10 @@ export default function ProfilePage() {
                 size="sm"
                 fontSize={'sm'}
                 placeholder="Name"
-                defaultValue={getLastName(auth.currentUser.displayName)}
+                defaultValue={
+                  profile[0].lastName ??
+                  getLastName(auth.currentUser.displayName)
+                }
                 ref={lastNameRef}
               />
             </HStack>
