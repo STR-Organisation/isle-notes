@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Navbar } from '../components/Navbar';
 import {
   Button,
@@ -13,8 +13,33 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { SUBJECT_SHORTHAND } from '../utils';
+import { addDoc, collection } from 'firebase/firestore';
+import { auth, db } from '../firebase-config';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 export default function ProposeNotes() {
+  const proposalRef = collection(db, 'proposals');
+
+  const classRef = useRef();
+  const topicRef = useRef();
+  const noteRef = useRef();
+
+  const [user] = useAuthState(auth);
+
+  const propose = async () => {
+    const data = {
+      uid: user.uid,
+      displayName: user.displayName,
+      className: classRef.current.value,
+      topic: topicRef.current.value,
+      note: noteRef.current.value,
+    };
+
+    console.log(data);
+
+    await addDoc(proposalRef, data);
+  };
+
   return (
     <>
       <Navbar />
@@ -29,10 +54,14 @@ export default function ProposeNotes() {
             <Text fontWeight={'semibold'} fontSize="lg" mr={8}>
               Class
             </Text>
-            <Select placeholder="Select class">
+            <Select placeholder="Select class" ref={classRef}>
               {Object.entries(SUBJECT_SHORTHAND).map((v, idx) => {
                 const [key, value] = v;
-                return <option value={value}>{key}</option>;
+                return (
+                  <option value={value} key={idx}>
+                    {key}
+                  </option>
+                );
               })}
             </Select>
           </HStack>
@@ -40,7 +69,7 @@ export default function ProposeNotes() {
             <Text fontWeight={'semibold'} fontSize="lg" w="10ch">
               Topic
             </Text>
-            <Input placeholder="Type here..." />
+            <Input placeholder="Type here..." ref={topicRef} />
           </HStack>
         </VStack>
         <Divider />
@@ -50,9 +79,11 @@ export default function ProposeNotes() {
               Note Editor
             </Heading>
           </Flex>
-          <Textarea w="50vw" h="30vh" />
+          <Textarea w="50vw" h="30vh" ref={noteRef} />
         </VStack>
-        <Button colorScheme={'red'}>Propose</Button>
+        <Button onClick={propose} colorScheme={'red'}>
+          Propose
+        </Button>
       </Flex>
     </>
   );
