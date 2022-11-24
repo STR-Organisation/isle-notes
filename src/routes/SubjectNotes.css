@@ -1,0 +1,7 @@
+.main {
+  all: revert;
+}
+
+.main * {
+  all: revert;
+}
