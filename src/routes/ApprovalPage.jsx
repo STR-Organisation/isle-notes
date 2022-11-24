@@ -1,6 +1,13 @@
-import { Heading, Flex, Button } from '@chakra-ui/react';
-import { collection, query, where } from 'firebase/firestore';
-import React, { useEffect } from 'react';
+import { Heading, Flex, Button, useToast } from '@chakra-ui/react';
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  where,
+  updateDoc,
+} from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { Navbar } from '../components/Navbar';
@@ -15,7 +22,10 @@ export default function ApprovalPage() {
   const proposalTableRef = collection(db, 'proposals');
 
   const [user] = useAuthState(auth);
+  const [proposals, setProposals] = useState([]);
   const navigate = useNavigate();
+
+  const toast = useToast();
 
   let organizerQuery, proposalsQuery;
   if (user) {
@@ -39,17 +49,35 @@ export default function ApprovalPage() {
   }, [organizerInfo]);
 
   useEffect(() => {
-    if (proposalInfo) {
-      console.log(proposalInfo);
-    }
+    const fetchProposals = async () => {
+      const data = await getDocs(proposalsQuery);
+      setProposals(data.docs.map(f => ({ ...f.data(), id: f.id })));
+    };
+    fetchProposals();
+    // having this as a dependency helps for some reason
   }, [proposalInfo]);
+
+  const approve = async (docId, ob) => {
+    setProposals(proposals.filter(x => x !== ob));
+    toast({
+      title: 'Approved!',
+      duration: 3000,
+      status: 'success',
+      position: 'bottom-left',
+      description: `Approved topic \`${ob.topic}\``,
+    });
+    const proposal = doc(db, 'proposals', docId);
+    const newData = ob;
+    newData.isApproved = true;
+    await updateDoc(proposal, newData);
+  };
 
   return (
     <>
       <Navbar />
       {organizerInfo ? (
         <Flex flexDir={'column'} w="100%" align={'center'}>
-          {proposalInfo.map((v, idx) => {
+          {proposals.map((v, idx) => {
             return (
               <>
                 <Flex
@@ -60,12 +88,26 @@ export default function ApprovalPage() {
                   marginBlock={2}
                   borderColor="gray.200"
                   borderRadius={'lg'}
+                  minW="40vw"
                 >
                   <Heading fontSize={'xl'}>
                     {getKeyByValue(SUBJECT_SHORTHAND, v.className)}: {v.topic}
                   </Heading>
                   <Markdown children={v.note} />
-                  <Button colorScheme={'red'}>Approve</Button>
+                  <Flex w={'100%'} justify={'space-evenly'}>
+                    <Button
+                      colorScheme={'green'}
+                      w={'17ch'}
+                      onClick={() => {
+                        approve(v.id, v);
+                      }}
+                    >
+                      Approve
+                    </Button>
+                    <Button colorScheme={'red'} w={'17ch'}>
+                      Reject
+                    </Button>
+                  </Flex>
                 </Flex>
               </>
             );
