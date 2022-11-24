@@ -6,7 +6,7 @@ import { getKeyByValue, SUBJECT_SHORTHAND } from '../utils';
 import ReactMarkdown from 'react-markdown';
 import TopicText from '../components/TopicText';
 import remarkGfm from 'remark-gfm';
-import './SubjectNotes.css';
+import './Markdown.css';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
