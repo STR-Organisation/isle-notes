@@ -3,7 +3,6 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
 import { getKeyByValue, SUBJECT_SHORTHAND } from '../utils';
-import ReactMarkdown from 'react-markdown';
 import TopicText from '../components/TopicText';
 import Markdown from '../components/Markdown';
 
