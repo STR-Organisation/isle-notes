@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Navbar } from '../components/Navbar';
 import {
   Button,
@@ -11,18 +11,25 @@ import {
   Text,
   Textarea,
   VStack,
+  Box,
 } from '@chakra-ui/react';
 import { SUBJECT_SHORTHAND } from '../utils';
 import { addDoc, collection } from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import remarkGfm from 'remark-gfm';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
+import './Markdown.css';
 
 export default function ProposeNotes() {
   const proposalRef = collection(db, 'proposals');
 
   const classRef = useRef();
   const topicRef = useRef();
-  const noteRef = useRef();
+  const [note, setNote] = useState();
 
   const [user] = useAuthState(auth);
 
@@ -32,7 +39,7 @@ export default function ProposeNotes() {
       displayName: user.displayName,
       className: classRef.current.value,
       topic: topicRef.current.value,
-      note: noteRef.current.value,
+      note,
     };
 
     console.log(data);
@@ -79,7 +86,22 @@ export default function ProposeNotes() {
               Note Editor
             </Heading>
           </Flex>
-          <Textarea w="50vw" h="30vh" ref={noteRef} />
+          <Flex>
+            <Textarea
+              w="50vw"
+              h="30vh"
+              onChange={e => setNote(e.target.value)}
+            />
+            <Box>
+              <div className="main">
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm, remarkMath]}
+                  rehypePlugins={rehypeKatex}
+                  children={note}
+                />
+              </div>
+            </Box>
+          </Flex>
         </VStack>
         <Button onClick={propose} colorScheme={'red'}>
           Propose
