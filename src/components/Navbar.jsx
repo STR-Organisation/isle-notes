@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Flex,
   Link,
   Menu,
@@ -14,7 +15,6 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { auth, signInWithGoogle, db } from '../firebase-config';
-import ProfilePhoto from './ProfilePhoto';
 import { CgLogOut } from 'react-icons/cg';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { collection, query, where } from 'firebase/firestore';
@@ -87,7 +87,7 @@ export const Navbar = () => {
             )}
             <Menu>
               <MenuButton>
-                <ProfilePhoto mr={10} photoURL={user.photoURL} />
+                <Avatar src={user.photoURL} mr={10} />
               </MenuButton>
               <MenuList color={'black'}>
                 <RouterLink to="/profile">
