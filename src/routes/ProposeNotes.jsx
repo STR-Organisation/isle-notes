@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navbar } from '../components/Navbar';
 import {
+  Button,
   Divider,
   Flex,
   Heading,
@@ -51,6 +52,7 @@ export default function ProposeNotes() {
           </Flex>
           <Textarea w="50vw" h="30vh" />
         </VStack>
+        <Button colorScheme={'red'}>Propose</Button>
       </Flex>
     </>
   );
