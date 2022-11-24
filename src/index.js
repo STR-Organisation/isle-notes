@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ProfilePage from './routes/ProfilePage';
 import Notes from './routes/Notes';
 import SubjectNotes from './routes/SubjectNotes';
+import './index.css';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
