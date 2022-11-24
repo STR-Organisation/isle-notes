@@ -1,14 +1,21 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import RemarkMathPlugin from 'remark-math';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import './Markdown.css';
+import 'katex/dist/katex.min.css';
 
-const _mapProps = props => ({
-  ...props,
-  escapeHtml: false,
-  plugins: [RemarkMathPlugin, remarkGfm],
-});
-
-const Markdown = props => <ReactMarkdown {..._mapProps(props)} />;
-
-export default Markdown;
+export default function Markdown({ children }) {
+  return (
+    <>
+      <div className="main">
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm, remarkMath]}
+          rehypePlugins={rehypeKatex}
+          children={children}
+        />
+      </div>
+    </>
+  );
+}

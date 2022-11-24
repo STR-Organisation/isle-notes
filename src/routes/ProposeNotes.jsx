@@ -17,12 +17,7 @@ import { SUBJECT_SHORTHAND } from '../utils';
 import { addDoc, collection } from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import ReactMarkdown from 'react-markdown';
-import remarkMath from 'remark-math';
-import remarkGfm from 'remark-gfm';
-import rehypeKatex from 'rehype-katex';
-import 'katex/dist/katex.min.css';
-import './Markdown.css';
+import Markdown from '../components/Markdown';
 
 export default function ProposeNotes() {
   const proposalRef = collection(db, 'proposals');
@@ -93,13 +88,7 @@ export default function ProposeNotes() {
               onChange={e => setNote(e.target.value)}
             />
             <Box>
-              <div className="main">
-                <ReactMarkdown
-                  remarkPlugins={[remarkGfm, remarkMath]}
-                  rehypePlugins={rehypeKatex}
-                  children={note}
-                />
-              </div>
+              <Markdown>{note}</Markdown>
             </Box>
           </Flex>
         </VStack>

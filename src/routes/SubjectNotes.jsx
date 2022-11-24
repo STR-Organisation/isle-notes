@@ -5,11 +5,7 @@ import { Navbar } from '../components/Navbar';
 import { getKeyByValue, SUBJECT_SHORTHAND } from '../utils';
 import ReactMarkdown from 'react-markdown';
 import TopicText from '../components/TopicText';
-import remarkGfm from 'remark-gfm';
-import './Markdown.css';
-import remarkMath from 'remark-math';
-import rehypeKatex from 'rehype-katex';
-import 'katex/dist/katex.min.css';
+import Markdown from '../components/Markdown';
 
 export default function SubjectNotes() {
   const { subject } = useParams();
@@ -56,13 +52,7 @@ export default function SubjectNotes() {
             return <TopicText key={idx}>{e}</TopicText>;
           })}
         </Flex>
-        <div class="main">
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm, remarkMath]}
-            rehypePlugins={rehypeKatex}
-            children={markdown}
-          />
-        </div>
+        <Markdown>{markdown}</Markdown>
       </Flex>
     </>
   );
