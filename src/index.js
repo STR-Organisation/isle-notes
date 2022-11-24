@@ -8,6 +8,7 @@ import ProfilePage from './routes/ProfilePage';
 import Notes from './routes/Notes';
 import SubjectNotes from './routes/SubjectNotes';
 import './index.css';
+import ProposeNotes from './routes/ProposeNotes.jsx';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: '/notes/:subject',
     element: <SubjectNotes />,
+  },
+  {
+    path: '/notes/propose',
+    element: <ProposeNotes />,
   },
 ]);
 
