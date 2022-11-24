@@ -6,6 +6,7 @@ import {
   query,
   where,
   updateDoc,
+  deleteDoc,
 } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -72,6 +73,19 @@ export default function ApprovalPage() {
     await updateDoc(proposal, newData);
   };
 
+  const reject = async (docId, ob) => {
+    setProposals(proposals.filter(x => x !== ob));
+    toast({
+      title: 'Rejected',
+      duration: 3000,
+      status: 'error',
+      position: 'bottom-left',
+      description: `Rejected topic \`${ob.topic}\``,
+    });
+    const proposal = doc(db, 'proposals', docId);
+    await deleteDoc(proposal);
+  };
+
   return (
     <>
       <Navbar />
@@ -104,7 +118,13 @@ export default function ApprovalPage() {
                     >
                       Approve
                     </Button>
-                    <Button colorScheme={'red'} w={'17ch'}>
+                    <Button
+                      colorScheme={'red'}
+                      w={'17ch'}
+                      onClick={() => {
+                        reject(v.id, v);
+                      }}
+                    >
                       Reject
                     </Button>
                   </Flex>
