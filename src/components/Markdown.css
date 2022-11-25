@@ -1,6 +1,7 @@
 .main {
   all: revert;
   padding: 2vw;
+  overflow: auto;
 }
 
 .main * {
