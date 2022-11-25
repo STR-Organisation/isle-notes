@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from '@chakra-ui/react';
 
-export default function TopicText({ children }) {
+export default function TopicText({ textValue, onClick }) {
   return (
     <Text
       cursor={'pointer'}
@@ -16,8 +16,11 @@ export default function TopicText({ children }) {
         color: 'white',
       }}
       borderRadius="lg"
+      onClick={() => {
+        onClick(textValue);
+      }}
     >
-      {children}
+      {textValue}
     </Text>
   );
 }
