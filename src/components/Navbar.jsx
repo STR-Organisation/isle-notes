@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Flex,
   Link,
   Menu,
@@ -95,7 +94,9 @@ export const Navbar = () => {
                       <MenuItem>Propose Notes</MenuItem>
                     </RouterLink>
                     <MenuDivider />
-                    <MenuItem>My Proposals</MenuItem>
+                    <RouterLink>
+                      <MenuItem>My Proposals</MenuItem>
+                    </RouterLink>
                   </MenuList>
                 </Menu>
                 <Menu>
