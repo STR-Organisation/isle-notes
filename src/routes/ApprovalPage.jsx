@@ -1,4 +1,11 @@
-import { Heading, Flex, Button, useToast } from '@chakra-ui/react';
+import {
+  Heading,
+  Flex,
+  Button,
+  useToast,
+  Divider,
+  Text,
+} from '@chakra-ui/react';
 import {
   collection,
   doc,
@@ -6,7 +13,6 @@ import {
   query,
   where,
   updateDoc,
-  deleteDoc,
 } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -106,10 +112,15 @@ export default function ApprovalPage() {
                   borderRadius={'lg'}
                   minW="40vw"
                 >
-                  <Heading fontSize={'xl'}>
+                  <Heading fontSize={'lg'}>
                     {getKeyByValue(SUBJECT_SHORTHAND, v.className)}: {v.topic}
                   </Heading>
+                  <Text fontSize={'sm'} color="gray.500">
+                    Proposed By {v.displayName}
+                  </Text>
+                  <Divider mt={2} />
                   <Markdown children={v.note} />
+                  <Divider />
                   <Flex w={'100%'} justify={'space-evenly'} mt={4}>
                     <Button
                       colorScheme={'green'}
