@@ -94,9 +94,6 @@ export const Navbar = () => {
                       <MenuItem>Propose Notes</MenuItem>
                     </RouterLink>
                     <MenuDivider />
-                    <RouterLink>
-                      <MenuItem>My Proposals</MenuItem>
-                    </RouterLink>
                   </MenuList>
                 </Menu>
                 <Menu>
