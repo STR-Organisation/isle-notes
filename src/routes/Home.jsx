@@ -1,6 +1,6 @@
 import { Divider, Grid, GridItem, Heading, Spinner } from '@chakra-ui/react';
 import { collection, query, where } from 'firebase/firestore';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { Navbar } from '../components/Navbar';
