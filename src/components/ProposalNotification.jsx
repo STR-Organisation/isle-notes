@@ -8,10 +8,11 @@ export default function ProposalNotification({
   className,
   status,
   onClose,
+  ...props
 }) {
   return (
     <>
-      <Flex p={4} flexDir="column" position={'relative'}>
+      <Flex p={4} flexDir="column" position={'relative'} {...props}>
         <CloseIcon
           position={'absolute'}
           top={'15%'}

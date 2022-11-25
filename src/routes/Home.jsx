@@ -34,13 +34,13 @@ export default function Home() {
           <Divider />
           {proposals ? (
             proposals.map((v, idx) => {
-              console.log(v);
               return (
                 <ProposalNotification
                   className={getKeyByValue(SUBJECT_SHORTHAND, v.className)}
                   title={v.topic}
                   status={v.isApproved ? 'approved' : 'rejected'}
                   onClose={console.log}
+                  key={idx}
                 />
               );
             })
