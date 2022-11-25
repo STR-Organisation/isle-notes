@@ -31,7 +31,7 @@ export default function ApprovalPage() {
   let organizerQuery, proposalsQuery;
   if (user) {
     organizerQuery = query(organizerTableRef, where('uid', '==', user.uid));
-    proposalsQuery = query(proposalTableRef, where('isApproved', '==', false));
+    proposalsQuery = query(proposalTableRef, where('status', '==', 'none'));
   }
   const [organizerInfo] = useCollectionData(organizerQuery, {
     idField: 'id',
@@ -69,7 +69,7 @@ export default function ApprovalPage() {
     });
     const proposal = doc(db, 'proposals', docId);
     const newData = ob;
-    newData.isApproved = true;
+    newData.status = 'approved';
     await updateDoc(proposal, newData);
   };
 
@@ -83,7 +83,9 @@ export default function ApprovalPage() {
       description: `Rejected topic \`${ob.topic}\``,
     });
     const proposal = doc(db, 'proposals', docId);
-    await deleteDoc(proposal);
+    const newData = ob;
+    newData.status = 'rejected';
+    await updateDoc(proposal, newData);
   };
 
   return (

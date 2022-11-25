@@ -42,7 +42,7 @@ export default function ProposeNotes() {
       className: classRef.current.value,
       topic: topicRef.current.value,
       note,
-      isApproved: false,
+      status: 'none',
     };
 
     console.log(data);

@@ -43,7 +43,7 @@ export default function Home() {
                 <ProposalNotification
                   className={getKeyByValue(SUBJECT_SHORTHAND, v.className)}
                   title={v.topic}
-                  status={v.isApproved ? 'approved' : 'rejected'}
+                  status={v.status}
                   onClose={() => {
                     remove(v.id);
                   }}

@@ -19,7 +19,7 @@ export default function SubjectNotes() {
 
   const q = query(
     proposalRef,
-    where('isApproved', '==', true),
+    where('status', '==', 'approved'),
     where('className', '==', subject)
   );
 
