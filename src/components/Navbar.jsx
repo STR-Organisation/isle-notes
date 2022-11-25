@@ -23,13 +23,16 @@ import { SUBJECT_SHORTHAND } from '../utils';
 export const Navbar = () => {
   const [user] = useAuthState(auth);
   const userProfileRef = collection(db, 'userProfile');
+  const organizerRef = collection(db, 'organizers');
 
-  let q;
+  let q, organizerQuery;
   if (user) {
     q = query(userProfileRef, where('uid', '==', user.uid));
+    organizerQuery = query(organizerRef, where('uid', '==', user.uid));
   }
 
   const [profile] = useCollectionData(q, { idField: 'id' });
+  const [organizer] = useCollectionData(organizerQuery);
 
   const Logout = () => {
     auth.signOut();
@@ -61,27 +64,52 @@ export const Navbar = () => {
         {user && (
           <>
             {profile ? (
-              <Menu>
-                <MenuButton fontWeight={'semibold'} mr={5}>
-                  My Subjects
-                </MenuButton>
-                <MenuList color="black">
-                  {profile[0]?.classes.map((e, idx) => {
-                    return (
-                      <RouterLink
-                        key={idx}
-                        to={`/notes/${SUBJECT_SHORTHAND[e]}`}
-                      >
-                        <MenuItem>{e}</MenuItem>
-                      </RouterLink>
-                    );
-                  })}
-                  <MenuDivider />
-                  <RouterLink to="/notes">
-                    <MenuItem>All Subjects</MenuItem>
-                  </RouterLink>
-                </MenuList>
-              </Menu>
+              <>
+                {organizer ? (
+                  <>
+                    {organizer[0].isOrganizer ? (
+                      <Menu>
+                        <MenuButton fontWeight={'semibold'} mr={5}>
+                          Organizer
+                        </MenuButton>
+                        <MenuList color="black">
+                          <RouterLink to="/organizer/approve">
+                            <MenuItem>Manage Propositions</MenuItem>
+                          </RouterLink>
+                        </MenuList>
+                      </Menu>
+                    ) : (
+                      <></>
+                    )}
+                  </>
+                ) : (
+                  <Spinner mr={5} />
+                )}
+                <Menu>
+                  <MenuButton fontWeight={'semibold'} mr={5}>
+                    My Subjects
+                  </MenuButton>
+                  <MenuList color="black">
+                    {profile[0]?.classes.map((e, idx) => {
+                      return (
+                        <RouterLink
+                          key={idx}
+                          to={`/notes/${SUBJECT_SHORTHAND[e]}`}
+                        >
+                          <MenuItem>{e}</MenuItem>
+                        </RouterLink>
+                      );
+                    })}
+                    <MenuDivider />
+                    <RouterLink to="/notes">
+                      <MenuItem>All Subjects</MenuItem>
+                    </RouterLink>
+                    <RouterLink to="/notes/propose">
+                      <MenuItem>Propose Notes</MenuItem>
+                    </RouterLink>
+                  </MenuList>
+                </Menu>
+              </>
             ) : (
               <Spinner mr={5} />
             )}
