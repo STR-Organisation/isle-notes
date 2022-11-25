@@ -49,6 +49,7 @@ export const Navbar = () => {
         borderBottomWidth={'1.5px'}
         color="white"
         bgColor="tomato"
+        zIndex={'overlay'}
       >
         <RouterLink to={'/'}>
           <Link ml={5} fontWeight="bold" fontSize={'2xl'}>
