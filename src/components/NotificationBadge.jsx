@@ -5,12 +5,18 @@ export default function NotificationBadge({ text }) {
   const textMap = {
     approved: 'Approved',
     rejected: 'Rejected',
+    none: 'N/A',
   };
 
   const colorMap = {
     approved: 'green',
     rejected: 'red',
+    none: 'blue',
   };
 
-  return <Badge colorScheme={colorMap[text]}>{textMap[text]}</Badge>;
+  return (
+    <Badge mt={2} textAlign={'center'} colorScheme={colorMap[text]}>
+      {textMap[text]}
+    </Badge>
+  );
 }
