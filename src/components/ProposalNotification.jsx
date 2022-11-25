@@ -21,7 +21,7 @@ export default function ProposalNotification({
           cursor="pointer"
           onClick={onClose}
         />
-        <Text>{title}</Text>
+        <Text maxW="17ch">{title}</Text>
         <Text fontSize={'13'} color="gray.500">
           {className}
         </Text>
