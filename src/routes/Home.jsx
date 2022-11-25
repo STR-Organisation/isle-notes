@@ -27,7 +27,7 @@ export default function Home() {
         <GridItem colSpan={4} bg="beige">
           Main Content
         </GridItem>
-        <GridItem overflow={'auto'}>
+        <GridItem overflow={'auto'} zIndex={-1}>
           <Heading size="sm" p={3}>
             My Proposals
           </Heading>
