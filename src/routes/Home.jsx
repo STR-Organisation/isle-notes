@@ -1,5 +1,12 @@
 import { Divider, Grid, GridItem, Heading, Spinner } from '@chakra-ui/react';
-import { collection, deleteDoc, doc, query, where } from 'firebase/firestore';
+import {
+  collection,
+  deleteDoc,
+  doc,
+  query,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
@@ -15,14 +22,24 @@ export default function Home() {
 
   let q;
   if (user) {
-    q = query(proposalRef, where('uid', '==', user.uid));
+    q = query(
+      proposalRef,
+      where('uid', '==', user.uid),
+      where('viewed', '==', false)
+    );
   }
 
   const [proposals] = useCollectionData(q);
 
-  const remove = async id => {
+  const remove = async (id, ob) => {
     const proposal = doc(db, 'proposals', id);
-    await deleteDoc(proposal);
+    if (ob.status === 'rejected') {
+      await deleteDoc(proposal);
+      return;
+    }
+    const newData = ob;
+    ob.viewed = true;
+    await updateDoc(proposal, newData);
   };
 
   return (
@@ -45,7 +62,7 @@ export default function Home() {
                   title={v.topic}
                   status={v.status}
                   onClose={() => {
-                    remove(v.id);
+                    remove(v.id, v);
                   }}
                   key={idx}
                 />
