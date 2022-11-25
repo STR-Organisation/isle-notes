@@ -1,10 +1,25 @@
-import { Divider, Grid, GridItem, Heading } from '@chakra-ui/react';
-import React from 'react';
+import { Divider, Grid, GridItem, Heading, Spinner } from '@chakra-ui/react';
+import { collection, query, where } from 'firebase/firestore';
+import React, { useEffect } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { Navbar } from '../components/Navbar';
 import ProposalNotification from '../components/ProposalNotification';
+import { auth, db } from '../firebase-config';
 import { getKeyByValue, SUBJECT_SHORTHAND } from '../utils';
 
 export default function Home() {
+  const proposalRef = collection(db, 'proposals');
+
+  const [user] = useAuthState(auth);
+
+  let q;
+  if (user) {
+    q = query(proposalRef, where('uid', '==', user.uid));
+  }
+
+  const [proposals] = useCollectionData(q);
+
   return (
     <>
       <Navbar />
@@ -17,21 +32,21 @@ export default function Home() {
             My Proposals
           </Heading>
           <Divider />
-          <ProposalNotification
-            title="Commands"
-            status="approved"
-            className={getKeyByValue(SUBJECT_SHORTHAND, 'spanish')}
-          />
-          <ProposalNotification
-            title="Linear Motion"
-            status="rejected"
-            className={getKeyByValue(SUBJECT_SHORTHAND, 'phys')}
-          />
-          <ProposalNotification
-            title="Photosynthesis"
-            status="none"
-            className={getKeyByValue(SUBJECT_SHORTHAND, 'bio')}
-          />
+          {proposals ? (
+            proposals.map((v, idx) => {
+              console.log(v);
+              return (
+                <ProposalNotification
+                  className={getKeyByValue(SUBJECT_SHORTHAND, v.className)}
+                  title={v.topic}
+                  status={v.isApproved ? 'approved' : 'rejected'}
+                  onClose={console.log}
+                />
+              );
+            })
+          ) : (
+            <Spinner color="tomato" />
+          )}
         </GridItem>
       </Grid>
     </>
