@@ -27,7 +27,9 @@ export default function ProposeNotes() {
 
   const classRef = useRef();
   const topicRef = useRef();
+
   const [note, setNote] = useState();
+  const [isPreview, setIsPreview] = useState(false);
 
   const [user] = useAuthState(auth);
 
@@ -133,21 +135,40 @@ export default function ProposeNotes() {
               Note Editor
             </Heading>
           </Flex>
-          <Flex>
+          {!isPreview && (
             <Textarea
-              w="50vw"
-              h="30vh"
+              w="40vw"
+              h="50vh"
               onChange={e => setNote(e.target.value)}
               value={note}
             />
-            <Box>
+          )}
+          {isPreview && (
+            <Box
+              w="40vw"
+              h="50vh"
+              border="1px"
+              borderColor={'gray.200'}
+              borderRadius="lg"
+              bg={'gray.50'}
+            >
               <Markdown>{note}</Markdown>
             </Box>
-          </Flex>
+          )}
         </VStack>
-        <Button onClick={propose} colorScheme={'red'}>
-          Propose
-        </Button>
+        <HStack>
+          <Button onClick={propose} colorScheme={'teal'}>
+            Propose
+          </Button>
+          <Button
+            colorScheme={'teal'}
+            onClick={() => {
+              setIsPreview(!isPreview);
+            }}
+          >
+            {isPreview ? 'Hide' : 'Show'} Preview
+          </Button>
+        </HStack>
       </Flex>
     </>
   );
