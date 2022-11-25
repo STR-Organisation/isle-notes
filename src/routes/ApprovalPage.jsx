@@ -108,7 +108,7 @@ export default function ApprovalPage() {
                     {getKeyByValue(SUBJECT_SHORTHAND, v.className)}: {v.topic}
                   </Heading>
                   <Markdown children={v.note} />
-                  <Flex w={'100%'} justify={'space-evenly'}>
+                  <Flex w={'100%'} justify={'space-evenly'} mt={4}>
                     <Button
                       colorScheme={'green'}
                       w={'17ch'}
