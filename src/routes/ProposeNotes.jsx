@@ -43,6 +43,7 @@ export default function ProposeNotes() {
       topic: topicRef.current.value,
       note,
       status: 'none',
+      viewed: false,
     };
 
     console.log(data);
