@@ -15,7 +15,7 @@ export default function ProposalNotification({
         <CloseIcon
           position={'absolute'}
           top={'15%'}
-          left={'80%'}
+          left={'90%'}
           fontSize={'x-small'}
           cursor="pointer"
           onClick={onClose}
