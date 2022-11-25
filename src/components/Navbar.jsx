@@ -88,6 +88,18 @@ export const Navbar = () => {
                 )}
                 <Menu>
                   <MenuButton fontWeight={'semibold'} mr={5}>
+                    Contribute
+                  </MenuButton>
+                  <MenuList color="black">
+                    <RouterLink to="/notes/propose">
+                      <MenuItem>Propose Notes</MenuItem>
+                    </RouterLink>
+                    <MenuDivider />
+                    <MenuItem>My Proposals</MenuItem>
+                  </MenuList>
+                </Menu>
+                <Menu>
+                  <MenuButton fontWeight={'semibold'} mr={5}>
                     My Subjects
                   </MenuButton>
                   <MenuList color="black">
@@ -104,9 +116,6 @@ export const Navbar = () => {
                     <MenuDivider />
                     <RouterLink to="/notes">
                       <MenuItem>All Subjects</MenuItem>
-                    </RouterLink>
-                    <RouterLink to="/notes/propose">
-                      <MenuItem>Propose Notes</MenuItem>
                     </RouterLink>
                   </MenuList>
                 </Menu>
