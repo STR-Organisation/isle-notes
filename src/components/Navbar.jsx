@@ -19,6 +19,7 @@ import { CgLogOut } from 'react-icons/cg';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { collection, query, where } from 'firebase/firestore';
 import { SUBJECT_SHORTHAND } from '../utils';
+import ProfilePhoto from './ProfilePhoto';
 
 export const Navbar = () => {
   const [user] = useAuthState(auth);
@@ -115,7 +116,7 @@ export const Navbar = () => {
             )}
             <Menu>
               <MenuButton>
-                <Avatar src={user.photoURL} mr={10} />
+                <ProfilePhoto src={user.photoURL} mr={10} />
               </MenuButton>
               <MenuList color={'black'}>
                 <RouterLink to="/profile">
