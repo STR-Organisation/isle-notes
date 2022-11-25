@@ -10,6 +10,7 @@ import {
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import CenteredSpinner from '../components/CenteredSpinner';
 import { Navbar } from '../components/Navbar';
 import ProposalNotification from '../components/ProposalNotification';
 import { auth, db } from '../firebase-config';
@@ -69,7 +70,7 @@ export default function Home() {
               );
             })
           ) : (
-            <Spinner color="tomato" />
+            <CenteredSpinner />
           )}
         </GridItem>
       </Grid>
