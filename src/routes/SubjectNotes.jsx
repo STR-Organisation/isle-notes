@@ -1,33 +1,44 @@
 import { Flex, Heading } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
 import { getKeyByValue, SUBJECT_SHORTHAND } from '../utils';
 import TopicText from '../components/TopicText';
 import Markdown from '../components/Markdown';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '../firebase-config';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 export default function SubjectNotes() {
   const { subject } = useParams();
+  const [currTopic, setCurrTopic] = useState('default');
 
   const fullName = getKeyByValue(SUBJECT_SHORTHAND, subject);
 
-  const markdown = `
-  
-  ### Definitely ${fullName}
+  const proposalRef = collection(db, 'proposals');
 
-  *Testing* ~~my~~ our **markdown**:
+  const q = query(
+    proposalRef,
+    where('isApproved', '==', true),
+    where('className', '==', subject)
+  );
 
-  $$s = ut + \\frac{1}{2}at^2$$
+  const proposals = useCollectionData(q);
 
-  $$\\hat{v} = \\begin{pmatrix}1 \\\\ 3\\end{pmatrix}$$
+  const topics = useRef({
+    default: `# ${fullName}`,
+  });
 
-  `;
-
-  const sampleTopics = [
-    'Photosynthesis',
-    'Organic Chemistry',
-    'The Central Dogma',
-  ];
+  useEffect(() => {
+    const fetchProposals = async () => {
+      const data = await getDocs(q);
+      data.forEach(proposal => {
+        const { topic, note } = proposal.data();
+        topics.current[topic] = note;
+      });
+    };
+    fetchProposals();
+  }, []);
 
   return (
     <>
@@ -44,14 +55,25 @@ export default function SubjectNotes() {
           align="center"
           flexDir={'column'}
         >
-          <Heading mt={4} fontSize={'xl'} cursor="pointer">
+          <Heading
+            mt={4}
+            fontSize={'xl'}
+            cursor="pointer"
+            onClick={() => {
+              setCurrTopic('default');
+            }}
+          >
             {fullName}
           </Heading>
-          {sampleTopics.map((e, idx) => {
-            return <TopicText key={idx}>{e}</TopicText>;
+          {Object.entries(topics.current).map((e, idx) => {
+            const [key, _] = e;
+            if (key === 'default') return <></>;
+            return (
+              <TopicText onClick={setCurrTopic} key={idx} textValue={key} />
+            );
           })}
         </Flex>
-        <Markdown>{markdown}</Markdown>
+        <Markdown>{topics.current[currTopic]}</Markdown>
       </Flex>
     </>
   );
