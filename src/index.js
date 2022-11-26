@@ -9,6 +9,7 @@ import SubjectNotes from './routes/SubjectNotes';
 import './index.css';
 import ProposeNotes from './routes/ProposeNotes.jsx';
 import ApprovalPage from './routes/ApprovalPage.jsx';
+import EditProposal from './routes/EditProposal.jsx';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: '/organizer/approve',
     element: <ApprovalPage />,
+  },
+  {
+    path: '/notes/propose/edit/:id',
+    element: <EditProposal />,
   },
 ]);
 
