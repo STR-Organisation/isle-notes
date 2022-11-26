@@ -1,7 +1,6 @@
 import { Heading } from '@chakra-ui/react';
-import { collection, doc, getDoc, query } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate, useParams } from 'react-router-dom';
 import CenteredSpinner from '../components/CenteredSpinner';
 import { Navbar } from '../components/Navbar';
