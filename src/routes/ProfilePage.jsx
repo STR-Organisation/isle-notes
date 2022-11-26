@@ -117,7 +117,7 @@ export default function ProfilePage() {
       <Navbar />
       {profile ? (
         <Flex w="100%" align={'center'} flexDir="column">
-          <Heading fontSize={'3xl'}>
+          <Heading fontSize={'3xl'} mt={2}>
             Welcome,{' '}
             {profile[0].firstName === undefined ||
             profile[0].lastName === undefined
@@ -129,7 +129,7 @@ export default function ProfilePage() {
           <Divider w={'40vw'} mt={4} />
 
           <VStack align={'flex-start'} mt={2} w={'40vw'}>
-            <Heading fontSize={'xl'} color="tomato">
+            <Heading fontSize={'xl'} color="messenger.500">
               Basic Info
             </Heading>
 
@@ -182,7 +182,7 @@ export default function ProfilePage() {
           <Divider w={'40vw'} mt={2} mb={2} />
 
           <VStack w={'40vw'} mt={2} align="flex-start">
-            <Heading fontSize={'xl'} color="tomato">
+            <Heading fontSize={'xl'} color="messenger.500">
               IB Information
             </Heading>
             <HStack>
@@ -234,7 +234,7 @@ export default function ProfilePage() {
             </HStack>
           </VStack>
           <Divider w={'40vw'} mt={2} />
-          <Button onClick={updateUser} colorScheme={'red'} mt={8}>
+          <Button onClick={updateUser} colorScheme={'messenger'} mt={8}>
             Update Information
           </Button>
         </Flex>

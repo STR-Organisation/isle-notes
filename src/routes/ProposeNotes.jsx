@@ -106,7 +106,7 @@ export default function ProposeNotes() {
         <Heading fontSize={'xl'}>Propose Notes</Heading>
         <Divider />
         <VStack align={'flex-start'}>
-          <Text fontSize={'xl'} fontWeight="bold" mb={2} color="tomato">
+          <Text fontSize={'xl'} fontWeight="bold" mb={2} color="messenger.500">
             Notes Metadata
           </Text>
           <HStack>
@@ -134,7 +134,7 @@ export default function ProposeNotes() {
         <Divider />
         <VStack>
           <Flex>
-            <Heading fontSize="xl" color="tomato">
+            <Heading fontSize="xl" color="messenger.500">
               Note Editor
             </Heading>
           </Flex>
@@ -160,11 +160,11 @@ export default function ProposeNotes() {
           )}
         </VStack>
         <HStack>
-          <Button onClick={propose} colorScheme={'teal'}>
+          <Button onClick={propose} colorScheme={'messenger'}>
             Propose
           </Button>
           <Button
-            colorScheme={'teal'}
+            colorScheme={'messenger'}
             onClick={() => {
               setIsPreview(!isPreview);
             }}

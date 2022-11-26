@@ -47,12 +47,12 @@ export const Navbar = () => {
         as="header"
         borderBottomWidth={'1.5px'}
         color="white"
-        bgColor="tomato"
+        bgColor="messenger.600"
         zIndex={'overlay'}
       >
         <RouterLink to={'/'}>
-          <Link ml={5} fontWeight="bold" fontSize={'2xl'}>
-            All-in-All
+          <Link ml={5} fontWeight="black" fontSize={'2xl'}>
+            ISLE
           </Link>
         </RouterLink>
         <Spacer />

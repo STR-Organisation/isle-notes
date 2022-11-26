@@ -72,7 +72,7 @@ export default function ViewProposal({ proposal, onDelete, ...props }) {
         <Divider />
         <Flex flexDir={'column'} align="center" h="100%">
           <HStack mt={3}>
-            <Button size="sm" colorScheme={'purple'} leftIcon={<BsEye />}>
+            <Button size="sm" colorScheme={'gray'} leftIcon={<BsEye />}>
               View
             </Button>
             <RouterLink to={`/notes/propose/edit/${id}`}>
