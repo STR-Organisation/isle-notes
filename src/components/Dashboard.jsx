@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Navbar } from './Navbar';
 import SubjectDisplay from './SubjectDisplay';
 import { Flex } from '@chakra-ui/react';
 import { useAuthState } from 'react-firebase-hooks/auth';
