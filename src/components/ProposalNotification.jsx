@@ -1,13 +1,15 @@
 import React from 'react';
-import { Divider, Flex, Text } from '@chakra-ui/react';
+import { Divider, Flex, Text, HStack } from '@chakra-ui/react';
 import NotificationBadge from '../components/NotificationBadge';
-import { CloseIcon } from '@chakra-ui/icons';
+import { CloseIcon, EditIcon } from '@chakra-ui/icons';
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function ProposalNotification({
   title,
   className,
   status,
   onClose,
+  to,
   ...props
 }) {
   return (
@@ -19,14 +21,12 @@ export default function ProposalNotification({
         cursor="pointer"
         {...props}
       >
-        <CloseIcon
-          position={'absolute'}
-          top={'15%'}
-          left={'90%'}
-          fontSize={'x-small'}
-          cursor="pointer"
-          onClick={onClose}
-        />
+        <HStack position={'absolute'} top={'15%'} left={'80%'}>
+          <RouterLink to={to}>
+            <EditIcon fontSize={'sm'} mb={1} />
+          </RouterLink>
+          <CloseIcon fontSize={'x-small'} cursor="pointer" onClick={onClose} />
+        </HStack>
         <Text maxW="17ch">{title}</Text>
         <Text fontSize={'13'} color="gray.500">
           {className}
