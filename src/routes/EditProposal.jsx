@@ -10,6 +10,7 @@ import {
   Textarea,
   Grid,
   GridItem,
+  useToast,
 } from '@chakra-ui/react';
 import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
@@ -34,6 +35,8 @@ export default function EditProposal() {
   const classRef = useRef();
 
   const navigate = useNavigate();
+
+  const toast = useToast();
 
   useEffect(() => {
     const fetchDoc = async () => {
@@ -81,6 +84,13 @@ export default function EditProposal() {
     console.log(newData);
     const docRef = doc(db, 'proposals', id);
     await updateDoc(docRef, newData);
+    toast({
+      title: 'Edit Successful',
+      status: 'success',
+      position: 'bottom-left',
+      duration: 3000,
+    });
+    navigate('/notes/propose');
   };
 
   return (
