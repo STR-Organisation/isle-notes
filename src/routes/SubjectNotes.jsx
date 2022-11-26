@@ -11,10 +11,11 @@ import { Navbar } from '../components/Navbar';
 import { getKeyByValue, SUBJECT_SHORTHAND } from '../utils';
 import TopicText from '../components/TopicText';
 import Markdown from '../components/Markdown';
-import { collection, getDoc, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { CloseIcon, EditIcon } from '@chakra-ui/icons';
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function SubjectNotes() {
   const { subject } = useParams();
@@ -39,6 +40,10 @@ export default function SubjectNotes() {
 
   const topics = useRef({
     default: `# ${fullName}`,
+  });
+
+  const topicRoutes = useRef({
+    default: `/notes/${subject}`,
   });
 
   useEffect(() => {
@@ -76,6 +81,7 @@ export default function SubjectNotes() {
       data.forEach(proposal => {
         const { topic, note } = proposal.data();
         topics.current[topic] = note;
+        topicRoutes.current[topic] = `/notes/propose/edit/${proposal.id}`;
       });
     };
     fetchProposals();
@@ -86,7 +92,9 @@ export default function SubjectNotes() {
       <Navbar />
       {isOrganizer && (
         <ButtonGroup position="absolute" bottom="2%" right="2%">
-          <IconButton icon={<EditIcon />} colorScheme="messenger" />
+          <RouterLink to={topicRoutes.current[currTopic]}>
+            <IconButton icon={<EditIcon />} colorScheme="messenger" />
+          </RouterLink>
           <IconButton
             fontSize="xs"
             icon={<CloseIcon />}
