@@ -33,7 +33,13 @@ export default function AllProposals() {
       {proposals ? (
         <Flex h="full" flexWrap={'wrap'}>
           {proposals.map((v, idx) => (
-            <ViewProposal proposal={v} />
+            <ViewProposal
+              proposal={v}
+              onDelete={() => {
+                setProposals(proposals.filter(x => x !== v));
+              }}
+              key={idx}
+            />
           ))}
         </Flex>
       ) : (
