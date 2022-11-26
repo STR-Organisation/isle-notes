@@ -43,10 +43,6 @@ export default function Home() {
 
   const remove = async (id, ob) => {
     const proposal = doc(db, 'proposals', id);
-    if (ob.status === 'rejected') {
-      await deleteDoc(proposal);
-      return;
-    }
     const newData = ob;
     ob.viewed = true;
     await updateDoc(proposal, newData);
