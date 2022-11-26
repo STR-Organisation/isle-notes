@@ -6,12 +6,20 @@ import {
   IconButton,
 } from '@chakra-ui/react';
 import React, { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
 import { getKeyByValue, SUBJECT_SHORTHAND } from '../utils';
 import TopicText from '../components/TopicText';
 import Markdown from '../components/Markdown';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { CloseIcon, EditIcon } from '@chakra-ui/icons';
@@ -45,6 +53,10 @@ export default function SubjectNotes() {
   const topicRoutes = useRef({
     default: `/notes/${subject}`,
   });
+
+  const topicIds = useRef({});
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProposals = async () => {
@@ -82,10 +94,22 @@ export default function SubjectNotes() {
         const { topic, note } = proposal.data();
         topics.current[topic] = note;
         topicRoutes.current[topic] = `/notes/propose/edit/${proposal.id}`;
+        topicIds.current[topic] = proposal.id;
       });
     };
     fetchProposals();
   }, [subject]);
+
+  const rejectCurrentProposal = async () => {
+    if (currTopic === 'default') return;
+    const docRef = doc(db, 'proposals', topicIds.current[currTopic]);
+    const docSnap = await getDoc(docRef);
+    const newData = docSnap.data();
+    newData.status = 'rejected';
+    newData.viewed = false;
+    await updateDoc(docRef, newData);
+    navigate('/');
+  };
 
   return (
     <>
@@ -99,6 +123,7 @@ export default function SubjectNotes() {
             fontSize="xs"
             icon={<CloseIcon />}
             colorScheme="messenger"
+            onClick={rejectCurrentProposal}
           />
         </ButtonGroup>
       )}
