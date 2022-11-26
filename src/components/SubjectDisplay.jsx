@@ -27,7 +27,7 @@ export default function SubjectDisplay({ title, image, to }) {
             align="flex-end"
             borderRadius={'2vw'}
           >
-            <Heading mb={4} ml={4} color={'white'} fontSize="xx-large">
+            <Heading mb={4} ml={4} color={'white'} fontSize="x-large">
               {title}
             </Heading>
           </Flex>
