@@ -50,7 +50,7 @@ export default function ProposalNotification({
         <Text fontSize={'13'} color="gray.500">
           {className}
         </Text>
-        <NotificationBadge text={status} />
+        <NotificationBadge mt={2} text={status} />
       </Flex>
       <Divider />
     </>

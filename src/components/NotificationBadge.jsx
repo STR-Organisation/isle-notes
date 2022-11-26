@@ -1,7 +1,7 @@
 import { Badge } from '@chakra-ui/react';
 import React from 'react';
 
-export default function NotificationBadge({ text }) {
+export default function NotificationBadge({ text, ...props }) {
   const textMap = {
     approved: 'Approved',
     rejected: 'Rejected',
@@ -15,7 +15,7 @@ export default function NotificationBadge({ text }) {
   };
 
   return (
-    <Badge mt={2} textAlign={'center'} colorScheme={colorMap[text]}>
+    <Badge {...props} textAlign={'center'} colorScheme={colorMap[text]}>
       {textMap[text]}
     </Badge>
   );
