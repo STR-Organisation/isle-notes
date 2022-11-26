@@ -69,7 +69,13 @@ export const Navbar = () => {
                   <>
                     {organizer[0].isOrganizer ? (
                       <Menu>
-                        <MenuButton fontWeight={'semibold'} mr={5}>
+                        <MenuButton
+                          fontWeight={'semibold'}
+                          mr={5}
+                          _hover={{
+                            transform: 'scale(1.05)',
+                          }}
+                        >
                           Organizer
                         </MenuButton>
                         <MenuList color="black">
@@ -86,7 +92,13 @@ export const Navbar = () => {
                   <Spinner mr={5} />
                 )}
                 <Menu>
-                  <MenuButton fontWeight={'semibold'} mr={5}>
+                  <MenuButton
+                    fontWeight={'semibold'}
+                    mr={5}
+                    _hover={{
+                      transform: 'scale(1.05)',
+                    }}
+                  >
                     Contribute
                   </MenuButton>
                   <MenuList color="black">
@@ -96,7 +108,13 @@ export const Navbar = () => {
                   </MenuList>
                 </Menu>
                 <Menu>
-                  <MenuButton fontWeight={'semibold'} mr={5}>
+                  <MenuButton
+                    fontWeight={'semibold'}
+                    mr={5}
+                    _hover={{
+                      transform: 'scale(1.05)',
+                    }}
+                  >
                     My Subjects
                   </MenuButton>
                   <MenuList color="black">
