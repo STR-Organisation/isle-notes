@@ -6,14 +6,7 @@ import {
   Heading,
   Flex,
 } from '@chakra-ui/react';
-import {
-  collection,
-  deleteDoc,
-  doc,
-  query,
-  updateDoc,
-  where,
-} from 'firebase/firestore';
+import { collection, doc, query, updateDoc, where } from 'firebase/firestore';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
@@ -52,10 +45,10 @@ export default function Home() {
     <>
       <Navbar />
       <Grid
-        templateColumns={{ base: 'repeat(5, 1fr)', lg: 'repeat(8, 1fr)' }}
+        templateColumns={{ base: 'repeat(5, 1fr)', lg: 'repeat(9, 1fr)' }}
         h="93vh"
       >
-        <GridItem colSpan={{ base: 4, lg: 7 }}>
+        <GridItem colSpan={{ base: 4, lg: 8 }}>
           <Dashboard />
         </GridItem>
         <GridItem
