@@ -15,7 +15,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { SUBJECT_SHORTHAND } from '../utils';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Markdown from '../components/Markdown';
@@ -50,7 +50,10 @@ export default function ProposeNotes() {
 
     console.log(data);
 
-    await addDoc(proposalRef, data);
+    const d = await addDoc(proposalRef, data);
+
+    // update doc with id, necessary for notifications
+    await updateDoc(d, { ...data, id: d.id });
 
     toast({
       position: 'bottom-left',
