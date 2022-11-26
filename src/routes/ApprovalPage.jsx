@@ -147,7 +147,7 @@ export default function ApprovalPage() {
               );
             })
           ) : (
-            <Flex w="100%" justify={'center'}>
+            <Flex w="100%" justify={'center'} mt={2}>
               <Text fontSize={'2xl'} fontWeight="hairline">
                 No Pending Proposals
               </Text>
