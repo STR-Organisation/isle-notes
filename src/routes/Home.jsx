@@ -37,7 +37,7 @@ export default function Home() {
   const remove = async (id, ob) => {
     const proposal = doc(db, 'proposals', id);
     const newData = ob;
-    ob.viewed = true;
+    newData.viewed = true;
     await updateDoc(proposal, newData);
   };
 
