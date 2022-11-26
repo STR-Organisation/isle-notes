@@ -15,6 +15,7 @@ import {
   useToast,
   Grid,
   GridItem,
+  FormLabel,
 } from '@chakra-ui/react';
 import { SUBJECT_SHORTHAND } from '../utils';
 import { addDoc, collection, updateDoc } from 'firebase/firestore';
@@ -150,11 +151,12 @@ export default function ProposeNotes() {
             <Box></Box>
             <Box></Box>
             <Box></Box>
-            <HStack>
-              <Button onClick={propose} colorScheme={'messenger'}>
+            <HStack w="100%" justify={'center'}>
+              <Button w="50%" onClick={propose} colorScheme={'messenger'}>
                 Propose
               </Button>
               <Button
+                w="50%"
                 colorScheme={'messenger'}
                 onClick={() => {
                   setIsPreview(!isPreview);
@@ -163,6 +165,22 @@ export default function ProposeNotes() {
                 {isPreview ? 'Hide' : 'Show'} Preview
               </Button>
             </HStack>
+            <FormLabel
+              bg="messenger.500"
+              p={2}
+              color="white"
+              textAlign={'center'}
+              htmlFor="filef"
+              w="100%"
+              borderRadius={'md'}
+              _hover={{
+                backgroundColor: 'messenger.600',
+              }}
+              cursor="pointer"
+            >
+              <Input id="filef" type="file" display={'none'} />
+              File Upload
+            </FormLabel>
           </VStack>
         </GridItem>
         <GridItem colSpan={{ base: 2, lg: 6 }}>
