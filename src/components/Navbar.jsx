@@ -111,10 +111,6 @@ export const Navbar = () => {
                         </RouterLink>
                       );
                     })}
-                    <MenuDivider />
-                    <RouterLink to="/notes">
-                      <MenuItem>All Subjects</MenuItem>
-                    </RouterLink>
                   </MenuList>
                 </Menu>
               </>
