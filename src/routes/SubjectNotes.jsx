@@ -40,6 +40,20 @@ export default function SubjectNotes() {
     fetchProposals();
   }, []);
 
+  useEffect(() => {
+    topics.current = {
+      default: `# ${fullName}`,
+    };
+    const fetchProposals = async () => {
+      const data = await getDocs(q);
+      data.forEach(proposal => {
+        const { topic, note } = proposal.data();
+        topics.current[topic] = note;
+      });
+    };
+    fetchProposals();
+  }, [subject]);
+
   return (
     <>
       <Navbar />
