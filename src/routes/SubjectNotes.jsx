@@ -116,7 +116,7 @@ export default function SubjectNotes() {
         >
           <Heading
             mt={5}
-            fontSize={'xl'}
+            fontSize={'lg'}
             cursor="pointer"
             onClick={() => {
               setCurrTopic('default');
