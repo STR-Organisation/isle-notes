@@ -9,7 +9,7 @@ export default function SubjectDisplay({ title, image, to }) {
         <Flex
           bgImage={image}
           bgPosition="center"
-          w="sm"
+          w="xs"
           height={'2xs'}
           backgroundSize="cover"
           backgroundRepeat={'no-repeat'}
