@@ -4,6 +4,7 @@ import {
   Flex,
   Heading,
   IconButton,
+  useToast,
 } from '@chakra-ui/react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -58,6 +59,8 @@ export default function SubjectNotes() {
 
   const navigate = useNavigate();
 
+  const toast = useToast();
+
   useEffect(() => {
     const fetchProposals = async () => {
       const data = await getDocs(q);
@@ -101,13 +104,27 @@ export default function SubjectNotes() {
   }, [subject]);
 
   const rejectCurrentProposal = async () => {
-    if (currTopic === 'default') return;
+    if (currTopic === 'default') {
+      toast({
+        title: 'Invalid removal',
+        description: 'Cannot remove default topic',
+        status: 'error',
+        duration: 3000,
+        position: 'bottom-left',
+      });
+    }
     const docRef = doc(db, 'proposals', topicIds.current[currTopic]);
     const docSnap = await getDoc(docRef);
     const newData = docSnap.data();
     newData.status = 'rejected';
     newData.viewed = false;
     await updateDoc(docRef, newData);
+    toast({
+      title: 'Removal successful',
+      status: 'success',
+      duration: 3000,
+      position: 'bottom-left',
+    });
     navigate('/');
   };
 
