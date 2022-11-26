@@ -178,7 +178,12 @@ export default function ProposeNotes() {
               }}
               cursor="pointer"
             >
-              <Input id="filef" type="file" display={'none'} />
+              <Input
+                id="filef"
+                type="file"
+                display={'none'}
+                accept=".docx,.md,.doc"
+              />
               File Upload
             </FormLabel>
           </VStack>
