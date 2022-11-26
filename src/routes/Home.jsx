@@ -1,4 +1,11 @@
-import { Divider, Grid, GridItem, Heading } from '@chakra-ui/react';
+import {
+  Button,
+  Divider,
+  Grid,
+  GridItem,
+  Heading,
+  Flex,
+} from '@chakra-ui/react';
 import {
   collection,
   deleteDoc,
@@ -16,6 +23,7 @@ import ProposalNotification from '../components/ProposalNotification';
 import { auth, db } from '../firebase-config';
 import { getKeyByValue, SUBJECT_SHORTHAND } from '../utils';
 import { Dashboard } from '../components/Dashboard';
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function Home() {
   const proposalRef = collection(db, 'proposals');
@@ -62,19 +70,29 @@ export default function Home() {
           </Heading>
           <Divider />
           {proposals ? (
-            proposals.map((v, idx) => {
-              return (
-                <ProposalNotification
-                  className={getKeyByValue(SUBJECT_SHORTHAND, v.className)}
-                  title={v.topic}
-                  status={v.status}
-                  onClose={() => {
-                    remove(v.id, v);
-                  }}
-                  key={idx}
-                />
-              );
-            })
+            proposals.length !== 0 ? (
+              proposals.map((v, idx) => {
+                return (
+                  <ProposalNotification
+                    className={getKeyByValue(SUBJECT_SHORTHAND, v.className)}
+                    title={v.topic}
+                    status={v.status}
+                    onClose={() => {
+                      remove(v.id, v);
+                    }}
+                    key={idx}
+                  />
+                );
+              })
+            ) : (
+              <RouterLink to="/notes/propose">
+                <Flex>
+                  <Button w="80%" mx={'auto'} mt={2} colorScheme={'messenger'}>
+                    New Proposal
+                  </Button>
+                </Flex>
+              </RouterLink>
+            )
           ) : (
             <CenteredSpinner />
           )}
