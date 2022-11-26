@@ -5,6 +5,8 @@ import {
   GridItem,
   Heading,
   Flex,
+  Text,
+  Link,
 } from '@chakra-ui/react';
 import { collection, doc, query, updateDoc, where } from 'firebase/firestore';
 import React from 'react';
@@ -17,6 +19,7 @@ import { auth, db } from '../firebase-config';
 import { getKeyByValue, SUBJECT_SHORTHAND } from '../utils';
 import { Dashboard } from '../components/Dashboard';
 import { Link as RouterLink } from 'react-router-dom';
+import { ExternalLinkIcon } from '@chakra-ui/icons';
 
 export default function Home() {
   const proposalRef = collection(db, 'proposals');
@@ -60,6 +63,14 @@ export default function Home() {
           <Heading size="sm" p={3}>
             My Proposals
           </Heading>
+
+          <RouterLink to="/notes/propose/all">
+            <Link>
+              <Text color={'gray.500'} pl={3} pb={3} fontSize="sm">
+                All Proposals <ExternalLinkIcon />{' '}
+              </Text>
+            </Link>
+          </RouterLink>
           <Divider />
           {proposals ? (
             proposals.length !== 0 ? (

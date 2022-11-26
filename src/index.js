@@ -10,6 +10,7 @@ import './index.css';
 import ProposeNotes from './routes/ProposeNotes.jsx';
 import ApprovalPage from './routes/ApprovalPage.jsx';
 import EditProposal from './routes/EditProposal.jsx';
+import AllProposals from './routes/AllProposals.jsx';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: '/notes/propose/edit/:id',
     element: <EditProposal />,
+  },
+  {
+    path: '/notes/propose/all',
+    element: <AllProposals />,
   },
 ]);
 
