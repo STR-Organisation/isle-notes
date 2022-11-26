@@ -12,7 +12,13 @@ export default function ProposalNotification({
 }) {
   return (
     <>
-      <Flex p={4} flexDir="column" position={'relative'} {...props}>
+      <Flex
+        p={4}
+        flexDir="column"
+        position={'relative'}
+        cursor="pointer"
+        {...props}
+      >
         <CloseIcon
           position={'absolute'}
           top={'15%'}
