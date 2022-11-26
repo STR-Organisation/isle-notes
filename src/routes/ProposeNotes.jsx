@@ -13,6 +13,8 @@ import {
   VStack,
   Box,
   useToast,
+  Grid,
+  GridItem,
 } from '@chakra-ui/react';
 import { SUBJECT_SHORTHAND } from '../utils';
 import { addDoc, collection, updateDoc } from 'firebase/firestore';
@@ -28,7 +30,7 @@ export default function ProposeNotes() {
   const classRef = useRef();
   const topicRef = useRef();
 
-  const [note, setNote] = useState();
+  const [note, setNote] = useState('Type here...');
   const [isPreview, setIsPreview] = useState(false);
 
   const [user] = useAuthState(auth);
@@ -102,77 +104,90 @@ export default function ProposeNotes() {
   return (
     <>
       <Navbar />
-      <Flex w="100%" align={'center'} mt={2} flexDir="column" gap={4}>
-        <Heading fontSize={'xl'}>Propose Notes</Heading>
-        <Divider />
-        <VStack align={'flex-start'}>
-          <Text fontSize={'xl'} fontWeight="bold" mb={2} color="messenger.500">
-            Notes Metadata
-          </Text>
-          <HStack>
-            <Text fontWeight={'semibold'} fontSize="lg" mr={8}>
-              Class
-            </Text>
-            <Select placeholder="Select class" ref={classRef}>
-              {Object.entries(SUBJECT_SHORTHAND).map((v, idx) => {
-                const [key, value] = v;
-                return (
-                  <option value={value} key={idx}>
-                    {key}
-                  </option>
-                );
-              })}
-            </Select>
-          </HStack>
-          <HStack>
-            <Text fontWeight={'semibold'} fontSize="lg" w="10ch">
-              Topic
-            </Text>
-            <Input placeholder="Type here..." ref={topicRef} />
-          </HStack>
-        </VStack>
-        <Divider />
-        <VStack>
-          <Flex>
-            <Heading fontSize="xl" color="messenger.500">
-              Note Editor
-            </Heading>
-          </Flex>
-          {!isPreview && (
-            <Textarea
-              w="40vw"
-              h="50vh"
-              onChange={e => setNote(e.target.value)}
-              value={note}
-            />
-          )}
-          {isPreview && (
-            <Box
-              w="40vw"
-              h="50vh"
-              border="1px"
-              borderColor={'gray.200'}
-              borderRadius="lg"
-              bg={'gray.50'}
+      <Grid
+        templateColumns={{ base: 'repeat(3, 1fr)', lg: 'repeat(7, 1fr)' }}
+        height="93vh"
+        w="100%"
+        mt={2}
+      >
+        <GridItem
+          colSpan={1}
+          borderRight="1px"
+          borderColor={'gray.200'}
+          pl={3}
+          pr={3}
+        >
+          <VStack align={'center'}>
+            <Text
+              fontSize={'xl'}
+              fontWeight="bold"
+              mb={2}
+              color="messenger.500"
             >
-              <Markdown>{note}</Markdown>
-            </Box>
-          )}
-        </VStack>
-        <HStack>
-          <Button onClick={propose} colorScheme={'messenger'}>
-            Propose
-          </Button>
-          <Button
-            colorScheme={'messenger'}
-            onClick={() => {
-              setIsPreview(!isPreview);
-            }}
-          >
-            {isPreview ? 'Hide' : 'Show'} Preview
-          </Button>
-        </HStack>
-      </Flex>
+              Notes Metadata
+            </Text>
+            <HStack>
+              <Text fontWeight={'semibold'} fontSize="lg" mr={7}>
+                Class
+              </Text>
+              <Select placeholder="Select class" ref={classRef}>
+                {Object.entries(SUBJECT_SHORTHAND).map((v, idx) => {
+                  const [key, value] = v;
+                  return (
+                    <option value={value} key={idx}>
+                      {key}
+                    </option>
+                  );
+                })}
+              </Select>
+            </HStack>
+            <HStack>
+              <Text fontWeight={'semibold'} fontSize="lg" w="10ch">
+                Topic
+              </Text>
+              <Input placeholder="Type here..." ref={topicRef} />
+            </HStack>
+            <HStack>
+              <Button onClick={propose} colorScheme={'messenger'}>
+                Propose
+              </Button>
+              <Button
+                colorScheme={'messenger'}
+                onClick={() => {
+                  setIsPreview(!isPreview);
+                }}
+              >
+                {isPreview ? 'Hide' : 'Show'} Preview
+              </Button>
+            </HStack>
+          </VStack>
+        </GridItem>
+        <GridItem colSpan={{ base: 2, lg: 6 }}>
+          <Flex flexDirection="column" align="center">
+            {!isPreview && (
+              <Textarea
+                w="100%"
+                h="93vh"
+                onChange={e => setNote(e.target.value)}
+                value={note}
+                borderRadius="none"
+                borderTop={'none'}
+              />
+            )}
+            {isPreview && (
+              <Box
+                w="100%"
+                h="100%"
+                bg={'gray.50'}
+                borderRadius="none"
+                borderTop={'none'}
+              >
+                <Markdown>{note}</Markdown>
+              </Box>
+            )}
+          </Flex>
+        </GridItem>
+      </Grid>
     </>
   );
 }
