@@ -23,6 +23,8 @@ export default function SubjectNotes() {
     where('className', '==', subject)
   );
 
+  // DO NOT REMOVE THIS
+  // this helps the page work for some reason
   const proposals = useCollectionData(q);
 
   const topics = useRef({
