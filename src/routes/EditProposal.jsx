@@ -11,6 +11,7 @@ import {
   Grid,
   GridItem,
   useToast,
+  FormLabel,
 } from '@chakra-ui/react';
 import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
@@ -166,6 +167,27 @@ export default function EditProposal() {
                     {isPreview ? 'Hide' : 'Show'} Preview
                   </Button>
                 </HStack>
+                <FormLabel
+                  bg="messenger.500"
+                  p={2}
+                  color="white"
+                  textAlign={'center'}
+                  htmlFor="proposal-file"
+                  w="100%"
+                  borderRadius={'md'}
+                  _hover={{
+                    backgroundColor: 'messenger.600',
+                  }}
+                  cursor="pointer"
+                >
+                  <Input
+                    id="proposal-file"
+                    type="file"
+                    display={'none'}
+                    accept=".docx,.md,.doc"
+                  />
+                  File Upload
+                </FormLabel>
               </VStack>
             </GridItem>
             <GridItem colSpan={{ base: 2, lg: 6 }}>
