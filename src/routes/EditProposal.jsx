@@ -1,15 +1,40 @@
 import { Heading } from '@chakra-ui/react';
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import { collection, doc, getDoc, query } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useNavigate, useParams } from 'react-router-dom';
+import CenteredSpinner from '../components/CenteredSpinner';
 import { Navbar } from '../components/Navbar';
+import { auth, db } from '../firebase-config';
 
 export default function EditProposal() {
   const { id } = useParams();
+  const [data, setData] = useState();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchDoc = async () => {
+      const docRef = doc(db, 'proposals', id);
+      const docSnap = await getDoc(docRef);
+
+      if (!docSnap.exists()) {
+        navigate('/');
+      }
+
+      if (docSnap.data().uid !== auth.currentUser.uid) {
+        navigate('/');
+      }
+
+      setData(docSnap.data());
+    };
+    fetchDoc();
+  }, []);
 
   return (
     <>
       <Navbar />
-      <Heading>{id}</Heading>
+      {data ? <Heading>{id}</Heading> : <CenteredSpinner />}
     </>
   );
 }
