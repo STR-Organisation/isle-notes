@@ -80,3 +80,7 @@ export const SUBJECT_PICTURES = {
 export const getKeyByValue = (object, value) => {
   return Object.keys(object).find(key => object[key] === value);
 };
+
+export const formatEmail = email => {
+  return '@' + email.slice(0, email.indexOf('@'));
+};
