@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Divider,
-  Flex,
-  HStack,
-  Button,
-  Text,
-  Box,
-  Mark,
-} from '@chakra-ui/react';
+import { Divider, Flex, HStack, Button, Text } from '@chakra-ui/react';
 import NotificationBadge from './NotificationBadge';
 import { getKeyByValue, SUBJECT_SHORTHAND } from '../utils';
 import { EditIcon } from '@chakra-ui/icons';
