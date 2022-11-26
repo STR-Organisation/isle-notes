@@ -11,7 +11,7 @@ import {
   Box,
   Textarea,
 } from '@chakra-ui/react';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import CenteredSpinner from '../components/CenteredSpinner';
@@ -46,10 +46,25 @@ export default function EditProposal() {
       }
 
       setData(docSnap.data());
-      setNote(data.note);
     };
     fetchDoc();
   }, []);
+
+  const edit = async () => {
+    console.log(classRef.current.value);
+    const newData = {
+      topic: topicRef.current.value,
+      className: classRef.current.value,
+      note,
+      status: 'none',
+      viewed: false,
+      uid: auth.currentUser.uid,
+      email: auth.currentUser.email,
+    };
+    console.log(newData);
+    const docRef = doc(db, 'proposals', id);
+    await updateDoc(docRef, newData);
+  };
 
   return (
     <>
@@ -103,6 +118,7 @@ export default function EditProposal() {
                   h="50vh"
                   onChange={e => setNote(e.target.value)}
                   value={note}
+                  defaultValue={data.note}
                 />
               )}
               {isPreview && (
@@ -119,7 +135,9 @@ export default function EditProposal() {
               )}
             </VStack>
             <HStack>
-              <Button colorScheme={'teal'}>Propose</Button>
+              <Button onClick={edit} colorScheme={'teal'}>
+                Edit
+              </Button>
               <Button
                 colorScheme={'teal'}
                 onClick={() => {
