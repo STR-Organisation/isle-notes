@@ -40,7 +40,7 @@ export default function ProposeNotes() {
 
     const data = {
       uid: user.uid,
-      displayName: user.displayName,
+      email: user.email,
       className: classRef.current.value,
       topic: topicRef.current.value,
       note,
