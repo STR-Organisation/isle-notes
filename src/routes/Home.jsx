@@ -51,8 +51,11 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <Grid templateColumns={'repeat(5, 1fr)'} h="93vh">
-        <GridItem colSpan={4}>
+      <Grid
+        templateColumns={{ base: 'repeat(5, 1fr)', lg: 'repeat(8, 1fr)' }}
+        h="93vh"
+      >
+        <GridItem colSpan={{ base: 4, lg: 7 }}>
           <Dashboard />
         </GridItem>
         <GridItem
