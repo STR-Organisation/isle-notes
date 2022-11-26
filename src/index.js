@@ -5,7 +5,6 @@ import App from './App.js';
 import theme from './theme.js';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ProfilePage from './routes/ProfilePage';
-import Notes from './routes/Notes';
 import SubjectNotes from './routes/SubjectNotes';
 import './index.css';
 import ProposeNotes from './routes/ProposeNotes.jsx';
@@ -22,10 +21,6 @@ const router = createBrowserRouter([
   {
     path: '/profile',
     element: <ProfilePage />,
-  },
-  {
-    path: '/notes',
-    element: <Notes />,
   },
   {
     path: '/notes/:subject',

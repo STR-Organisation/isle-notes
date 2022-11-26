@@ -1,4 +1,4 @@
-import { Divider, Grid, GridItem, Heading, Spinner } from '@chakra-ui/react';
+import { Divider, Grid, GridItem, Heading } from '@chakra-ui/react';
 import {
   collection,
   deleteDoc,
@@ -15,6 +15,7 @@ import { Navbar } from '../components/Navbar';
 import ProposalNotification from '../components/ProposalNotification';
 import { auth, db } from '../firebase-config';
 import { getKeyByValue, SUBJECT_SHORTHAND } from '../utils';
+import { Dashboard } from '../components/Dashboard';
 
 export default function Home() {
   const proposalRef = collection(db, 'proposals');
@@ -47,10 +48,15 @@ export default function Home() {
     <>
       <Navbar />
       <Grid templateColumns={'repeat(5, 1fr)'} h="93vh">
-        <GridItem colSpan={4} bg="beige">
-          Main Content
+        <GridItem colSpan={4}>
+          <Dashboard />
         </GridItem>
-        <GridItem overflow={'auto'} zIndex={'banner'}>
+        <GridItem
+          overflow={'auto'}
+          zIndex={'banner'}
+          borderLeft="1px"
+          borderColor={'gray.200'}
+        >
           <Heading size="sm" p={3}>
             My Proposals
           </Heading>

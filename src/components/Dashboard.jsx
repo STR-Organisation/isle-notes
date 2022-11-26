@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Navbar } from '../components/Navbar';
-import SubjectDisplay from '../components/SubjectDisplay';
+import { Navbar } from './Navbar';
+import SubjectDisplay from './SubjectDisplay';
 import { Flex } from '@chakra-ui/react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../firebase-config';
 import { query, getDocs, where, collection } from 'firebase/firestore';
-import CenteredSpinner from '../components/CenteredSpinner';
+import CenteredSpinner from './CenteredSpinner';
 import { SUBJECT_PICTURES, SUBJECT_SHORTHAND } from '../utils';
 
-export default function Notes() {
+export function Dashboard() {
   const [user] = useAuthState(auth);
   const [profile, setProfile] = useState();
   const userProfileRef = collection(db, 'userProfile');
@@ -23,7 +23,6 @@ export default function Notes() {
   }, [user]);
   return (
     <>
-      <Navbar />
       {profile ? (
         <Flex flexWrap={'wrap'}>
           {profile[0].classes.map((e, idx) => {
