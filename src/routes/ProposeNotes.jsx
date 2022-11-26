@@ -170,7 +170,7 @@ export default function ProposeNotes() {
               p={2}
               color="white"
               textAlign={'center'}
-              htmlFor="filef"
+              htmlFor="proposal-file"
               w="100%"
               borderRadius={'md'}
               _hover={{
@@ -179,7 +179,7 @@ export default function ProposeNotes() {
               cursor="pointer"
             >
               <Input
-                id="filef"
+                id="proposal-file"
                 type="file"
                 display={'none'}
                 accept=".docx,.md,.doc"
