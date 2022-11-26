@@ -99,52 +99,60 @@ export default function ApprovalPage() {
       <Navbar />
       {organizerInfo ? (
         <Flex flexDir={'column'} w="100%" align={'center'}>
-          {proposals.map((v, idx) => {
-            return (
-              <>
-                <Flex
-                  flexDir={'column'}
-                  key={idx}
-                  border="1px"
-                  p={4}
-                  marginBlock={2}
-                  borderColor="gray.200"
-                  borderRadius={'lg'}
-                  minW="40vw"
-                >
-                  <Heading fontSize={'lg'}>
-                    {getKeyByValue(SUBJECT_SHORTHAND, v.className)}: {v.topic}
-                  </Heading>
-                  <Text fontSize={'sm'} color="gray.500">
-                    Proposed By {formatEmail(v.email)}
-                  </Text>
-                  <Divider mt={2} />
-                  <Markdown children={v.note} />
-                  <Divider />
-                  <Flex w={'100%'} justify={'space-evenly'} mt={4}>
-                    <Button
-                      colorScheme={'green'}
-                      w={'17ch'}
-                      onClick={() => {
-                        approve(v.id, v);
-                      }}
-                    >
-                      Approve
-                    </Button>
-                    <Button
-                      colorScheme={'red'}
-                      w={'17ch'}
-                      onClick={() => {
-                        reject(v.id, v);
-                      }}
-                    >
-                      Reject
-                    </Button>
+          {proposals.length !== 0 ? (
+            proposals.map((v, idx) => {
+              return (
+                <>
+                  <Flex
+                    flexDir={'column'}
+                    key={idx}
+                    border="1px"
+                    p={4}
+                    marginBlock={2}
+                    borderColor="gray.200"
+                    borderRadius={'lg'}
+                    minW="40vw"
+                  >
+                    <Heading fontSize={'lg'}>
+                      {getKeyByValue(SUBJECT_SHORTHAND, v.className)}: {v.topic}
+                    </Heading>
+                    <Text fontSize={'sm'} color="gray.500">
+                      Proposed By {formatEmail(v.email)}
+                    </Text>
+                    <Divider mt={2} />
+                    <Markdown children={v.note} />
+                    <Divider />
+                    <Flex w={'100%'} justify={'space-evenly'} mt={4}>
+                      <Button
+                        colorScheme={'green'}
+                        w={'17ch'}
+                        onClick={() => {
+                          approve(v.id, v);
+                        }}
+                      >
+                        Approve
+                      </Button>
+                      <Button
+                        colorScheme={'red'}
+                        w={'17ch'}
+                        onClick={() => {
+                          reject(v.id, v);
+                        }}
+                      >
+                        Reject
+                      </Button>
+                    </Flex>
                   </Flex>
-                </Flex>
-              </>
-            );
-          })}
+                </>
+              );
+            })
+          ) : (
+            <Flex w="100%" justify={'center'}>
+              <Text fontSize={'2xl'} fontWeight="hairline">
+                No Pending Proposals
+              </Text>
+            </Flex>
+          )}
         </Flex>
       ) : (
         <CenteredSpinner />
