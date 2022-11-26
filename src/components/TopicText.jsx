@@ -34,8 +34,6 @@ export default function TopicText({ textValue, onClick, highlighted }) {
           p={4}
           _hover={{
             bg: 'gray.100',
-            borderLeft: '4px',
-            borderColor: 'messenger.500',
           }}
           onClick={() => {
             console.log(highlighted);
