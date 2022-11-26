@@ -17,6 +17,10 @@ export default function SubjectDisplay({ title, image, to, ...props }) {
           borderRadius={'2vw'}
           align="flex-end"
           cursor={'pointer'}
+          _hover={{
+            transform: 'scale(1.05)',
+          }}
+          transition="all 200ms ease"
           {...props}
         >
           <Flex
