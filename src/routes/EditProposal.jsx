@@ -1,7 +1,5 @@
 import {
-  Heading,
   Flex,
-  Divider,
   Select,
   Text,
   VStack,
@@ -10,6 +8,8 @@ import {
   Button,
   Box,
   Textarea,
+  Grid,
+  GridItem,
 } from '@chakra-ui/react';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
@@ -46,6 +46,7 @@ export default function EditProposal() {
       }
 
       setData(docSnap.data());
+      setNote(docSnap.data().note);
     };
     fetchDoc();
   }, []);
@@ -71,83 +72,98 @@ export default function EditProposal() {
       <Navbar />
       {data ? (
         <>
-          <Flex w="100%" align={'center'} mt={2} flexDir="column" gap={4}>
-            <Heading fontSize={'xl'}>Edit Proposal</Heading>
-            <Divider />
-            <VStack align={'flex-start'}>
-              <HStack>
-                <Text fontWeight={'semibold'} fontSize="lg" mr={8}>
-                  Class
-                </Text>
-                <Select
-                  placeholder="Select class"
-                  ref={classRef}
-                  defaultValue={data.className}
+          <Grid
+            templateColumns={{ base: 'repeat(3, 1fr)', lg: 'repeat(7, 1fr)' }}
+            height="93vh"
+            w="100%"
+            mt={2}
+          >
+            <GridItem
+              colSpan={1}
+              borderRight="1px"
+              borderColor={'gray.200'}
+              pl={3}
+              pr={3}
+            >
+              <VStack align={'center'}>
+                <Text
+                  fontSize={'xl'}
+                  fontWeight="bold"
+                  mb={2}
+                  color="messenger.500"
                 >
-                  {Object.entries(SUBJECT_SHORTHAND).map((v, idx) => {
-                    const [key, value] = v;
-                    return (
-                      <option value={value} key={idx}>
-                        {key}
-                      </option>
-                    );
-                  })}
-                </Select>
-              </HStack>
-              <HStack>
-                <Text fontWeight={'semibold'} fontSize="lg" w="10ch">
-                  Topic
+                  Edit Note
                 </Text>
-                <Input
-                  placeholder="Type here..."
-                  ref={topicRef}
-                  defaultValue={data.topic}
-                />
-              </HStack>
-            </VStack>
-            <Divider />
-            <VStack>
-              <Flex>
-                <Heading fontSize="xl" color="tomato">
-                  Note Editor
-                </Heading>
+                <HStack>
+                  <Text fontWeight={'semibold'} fontSize="lg" mr={7}>
+                    Class
+                  </Text>
+                  <Select
+                    placeholder="Select class"
+                    ref={classRef}
+                    defaultValue={data.className}
+                  >
+                    {Object.entries(SUBJECT_SHORTHAND).map((v, idx) => {
+                      const [key, value] = v;
+                      return (
+                        <option value={value} key={idx}>
+                          {key}
+                        </option>
+                      );
+                    })}
+                  </Select>
+                </HStack>
+                <HStack>
+                  <Text fontWeight={'semibold'} fontSize="lg" w="10ch">
+                    Topic
+                  </Text>
+                  <Input
+                    placeholder="Type here..."
+                    ref={topicRef}
+                    defaultValue={data.topic}
+                  />
+                </HStack>
+                <HStack>
+                  <Button onClick={edit} colorScheme={'messenger'}>
+                    Confirm
+                  </Button>
+                  <Button
+                    colorScheme={'messenger'}
+                    onClick={() => {
+                      setIsPreview(!isPreview);
+                    }}
+                  >
+                    {isPreview ? 'Hide' : 'Show'} Preview
+                  </Button>
+                </HStack>
+              </VStack>
+            </GridItem>
+            <GridItem colSpan={{ base: 2, lg: 6 }}>
+              <Flex flexDirection="column" align="center">
+                {!isPreview && (
+                  <Textarea
+                    w="100%"
+                    h="93vh"
+                    onChange={e => setNote(e.target.value)}
+                    value={note}
+                    borderRadius="none"
+                    borderTop={'none'}
+                  />
+                )}
+                {isPreview && (
+                  <Box
+                    w="100%"
+                    h="100%"
+                    bg={'gray.50'}
+                    borderRadius="none"
+                    borderTop={'none'}
+                  >
+                    <Markdown>{note}</Markdown>
+                  </Box>
+                )}
               </Flex>
-              {!isPreview && (
-                <Textarea
-                  w="40vw"
-                  h="50vh"
-                  onChange={e => setNote(e.target.value)}
-                  value={note}
-                  defaultValue={data.note}
-                />
-              )}
-              {isPreview && (
-                <Box
-                  w="40vw"
-                  h="50vh"
-                  border="1px"
-                  borderColor={'gray.200'}
-                  borderRadius="lg"
-                  bg={'gray.50'}
-                >
-                  <Markdown>{note}</Markdown>
-                </Box>
-              )}
-            </VStack>
-            <HStack>
-              <Button onClick={edit} colorScheme={'teal'}>
-                Edit
-              </Button>
-              <Button
-                colorScheme={'teal'}
-                onClick={() => {
-                  setIsPreview(!isPreview);
-                }}
-              >
-                {isPreview ? 'Hide' : 'Show'} Preview
-              </Button>
-            </HStack>
-          </Flex>
+            </GridItem>
+          </Grid>
         </>
       ) : (
         <CenteredSpinner />
