@@ -59,7 +59,7 @@ export default function SubjectNotes() {
   return (
     <>
       <Navbar />
-      <Flex overflowX={'hidden'}>
+      <Flex overflowX={'hidden'} overflowY="auto">
         <Flex
           borderRight="1px"
           borderRightColor={'gray.200'}
@@ -72,12 +72,13 @@ export default function SubjectNotes() {
           flexDir={'column'}
         >
           <Heading
-            mt={4}
+            mt={5}
             fontSize={'xl'}
             cursor="pointer"
             onClick={() => {
               setCurrTopic('default');
             }}
+            mb={2}
           >
             {fullName}
           </Heading>
@@ -85,7 +86,12 @@ export default function SubjectNotes() {
             const [key, _] = e;
             if (key === 'default') return <></>;
             return (
-              <TopicText onClick={setCurrTopic} key={idx} textValue={key} />
+              <TopicText
+                onClick={setCurrTopic}
+                highlighted={key === currTopic}
+                key={idx}
+                textValue={key}
+              />
             );
           })}
         </Flex>

@@ -1,26 +1,51 @@
 import React from 'react';
 import { Text } from '@chakra-ui/react';
 
-export default function TopicText({ textValue, onClick }) {
+export default function TopicText({ textValue, onClick, highlighted }) {
   return (
-    <Text
-      cursor={'pointer'}
-      fontSize={'lg'}
-      color="black"
-      fontWeight={'semibold'}
-      mx="4"
-      p={4}
-      mt={4}
-      _hover={{
-        bg: 'tomato',
-        color: 'white',
-      }}
-      borderRadius="lg"
-      onClick={() => {
-        onClick(textValue);
-      }}
-    >
-      {textValue}
-    </Text>
+    <>
+      {highlighted ? (
+        <Text
+          cursor={'pointer'}
+          fontSize={'lg'}
+          color="black"
+          fontWeight={'semibold'}
+          mx="4"
+          w="100%"
+          p={4}
+          borderLeft="4px"
+          borderColor="messenger.500"
+          onClick={() => {
+            console.log(highlighted);
+            onClick(textValue);
+          }}
+          textAlign="center"
+        >
+          {textValue}
+        </Text>
+      ) : (
+        <Text
+          cursor={'pointer'}
+          fontSize={'lg'}
+          color="black"
+          fontWeight={'semibold'}
+          mx="4"
+          w="100%"
+          p={4}
+          _hover={{
+            bg: 'gray.100',
+            borderLeft: '4px',
+            borderColor: 'messenger.500',
+          }}
+          onClick={() => {
+            console.log(highlighted);
+            onClick(textValue);
+          }}
+          textAlign="center"
+        >
+          {textValue}
+        </Text>
+      )}
+    </>
   );
 }
