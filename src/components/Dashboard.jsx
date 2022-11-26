@@ -30,6 +30,7 @@ export function Dashboard() {
                 image={SUBJECT_PICTURES[SUBJECT_SHORTHAND[e]]}
                 title={e}
                 to={`/notes/${SUBJECT_SHORTHAND[e]}`}
+                key={idx}
               />
             );
           })}

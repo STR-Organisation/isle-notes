@@ -2,7 +2,7 @@ import React from 'react';
 import { Flex, Heading } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 
-export default function SubjectDisplay({ title, image, to }) {
+export default function SubjectDisplay({ title, image, to, ...props }) {
   return (
     <>
       <RouterLink to={to}>
@@ -17,6 +17,7 @@ export default function SubjectDisplay({ title, image, to }) {
           borderRadius={'2vw'}
           align="flex-end"
           cursor={'pointer'}
+          {...props}
         >
           <Flex
             bg={
