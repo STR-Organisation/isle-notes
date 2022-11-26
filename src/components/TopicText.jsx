@@ -16,7 +16,6 @@ export default function TopicText({ textValue, onClick, highlighted }) {
           borderLeft="4px"
           borderColor="messenger.500"
           onClick={() => {
-            console.log(highlighted);
             onClick(textValue);
           }}
           textAlign="center"
@@ -36,7 +35,6 @@ export default function TopicText({ textValue, onClick, highlighted }) {
             bg: 'gray.100',
           }}
           onClick={() => {
-            console.log(highlighted);
             onClick(textValue);
           }}
           textAlign="center"
