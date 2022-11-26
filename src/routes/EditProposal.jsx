@@ -149,8 +149,11 @@ export default function EditProposal() {
                     defaultValue={data.topic}
                   />
                 </HStack>
-                <HStack>
-                  <Button onClick={edit} colorScheme={'messenger'}>
+                <Box></Box>
+                <Box></Box>
+                <Box></Box>
+                <HStack w="100%" justify={'center'}>
+                  <Button onClick={edit} w="50%" colorScheme={'messenger'}>
                     Confirm
                   </Button>
                   <Button
@@ -158,6 +161,7 @@ export default function EditProposal() {
                     onClick={() => {
                       setIsPreview(!isPreview);
                     }}
+                    w="50%"
                   >
                     {isPreview ? 'Hide' : 'Show'} Preview
                   </Button>
