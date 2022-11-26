@@ -14,7 +14,7 @@ export default function SubjectDisplay({ title, image, to, ...props }) {
           backgroundSize="cover"
           backgroundRepeat={'no-repeat'}
           m={5}
-          borderRadius={'2vw'}
+          borderRadius={{ base: '2vw', lg: '1vw' }}
           align="flex-end"
           cursor={'pointer'}
           _hover={{
@@ -27,10 +27,10 @@ export default function SubjectDisplay({ title, image, to, ...props }) {
             bg={
               'linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%)'
             }
+            borderRadius={{ base: '2vw', lg: '1vw' }}
             w={'100%'}
             h={'40'}
             align="flex-end"
-            borderRadius={'2vw'}
           >
             <Heading mb={4} ml={4} color={'white'} fontSize="x-large">
               {title}
