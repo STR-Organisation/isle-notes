@@ -11,7 +11,7 @@ import {
   Grid,
   GridItem,
 } from '@chakra-ui/react';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import CenteredSpinner from '../components/CenteredSpinner';
@@ -19,9 +19,12 @@ import { Navbar } from '../components/Navbar';
 import { auth, db } from '../firebase-config';
 import { SUBJECT_SHORTHAND } from '../utils';
 import Markdown from '../components/Markdown';
+import { query, where, getDocs } from 'firebase/firestore';
 
 export default function EditProposal() {
   const { id } = useParams();
+
+  const organizerRef = collection(db, 'organizers');
 
   const [data, setData] = useState();
   const [isPreview, setIsPreview] = useState(false);
@@ -39,6 +42,19 @@ export default function EditProposal() {
 
       if (!docSnap.exists()) {
         navigate('/');
+      }
+
+      const organizerQuery = query(
+        organizerRef,
+        where('uid', '==', auth.currentUser.uid)
+      );
+      const organizerData = await getDocs(organizerQuery);
+
+      if (organizerData.docs[0].data().isOrganizer) {
+        console.log('organizer');
+        setData(docSnap.data());
+        setNote(docSnap.data().note);
+        return;
       }
 
       if (docSnap.data().uid !== auth.currentUser.uid) {
