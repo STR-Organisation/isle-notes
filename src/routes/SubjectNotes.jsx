@@ -1,21 +1,31 @@
-import { Flex, Heading } from '@chakra-ui/react';
+import {
+  Button,
+  ButtonGroup,
+  Flex,
+  Heading,
+  IconButton,
+} from '@chakra-ui/react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
 import { getKeyByValue, SUBJECT_SHORTHAND } from '../utils';
 import TopicText from '../components/TopicText';
 import Markdown from '../components/Markdown';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import { db } from '../firebase-config';
+import { collection, getDoc, getDocs, query, where } from 'firebase/firestore';
+import { auth, db } from '../firebase-config';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { CloseIcon, EditIcon } from '@chakra-ui/icons';
 
 export default function SubjectNotes() {
   const { subject } = useParams();
+
   const [currTopic, setCurrTopic] = useState('default');
+  const [isOrganizer, setIsOrganizer] = useState(false);
 
   const fullName = getKeyByValue(SUBJECT_SHORTHAND, subject);
 
   const proposalRef = collection(db, 'proposals');
+  const organizerRef = collection(db, 'organizers');
 
   const q = query(
     proposalRef,
@@ -38,6 +48,21 @@ export default function SubjectNotes() {
         const { topic, note } = proposal.data();
         topics.current[topic] = note;
       });
+
+      const organizerQuery = query(
+        organizerRef,
+        where('uid', '==', auth.currentUser.uid)
+      );
+      const organizerData = await getDocs(organizerQuery);
+
+      if (
+        !organizerData.docs[0].exists() ||
+        !organizerData.docs[0].data().isOrganizer
+      ) {
+        console.log('not an organizer');
+        return;
+      }
+      setIsOrganizer(true);
     };
     fetchProposals();
   }, []);
@@ -59,13 +84,23 @@ export default function SubjectNotes() {
   return (
     <>
       <Navbar />
+      {isOrganizer && (
+        <ButtonGroup position="absolute" bottom="2%" right="2%">
+          <IconButton icon={<EditIcon />} colorScheme="messenger" />
+          <IconButton
+            fontSize="xs"
+            icon={<CloseIcon />}
+            colorScheme="messenger"
+          />
+        </ButtonGroup>
+      )}
       <Flex overflowX={'hidden'} overflowY="auto">
         <Flex
           borderRight="1px"
           borderRightColor={'gray.200'}
           w={{ base: 'full', md: 60 }}
           pos="static"
-          minH={'100vh'}
+          minH={'93vh'}
           borderTop={'1px'}
           borderTopColor={'gray.200'}
           align="center"
