@@ -147,6 +147,9 @@ export default function ProposeNotes() {
               </Text>
               <Input placeholder="Type here..." ref={topicRef} />
             </HStack>
+            <Box></Box>
+            <Box></Box>
+            <Box></Box>
             <HStack>
               <Button onClick={propose} colorScheme={'messenger'}>
                 Propose
