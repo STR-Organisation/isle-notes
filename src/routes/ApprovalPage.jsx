@@ -21,7 +21,7 @@ import { Navbar } from '../components/Navbar';
 import { auth, db } from '../firebase-config';
 import CenteredSpinner from '../components/CenteredSpinner';
 import { useNavigate } from 'react-router-dom';
-import { getKeyByValue, SUBJECT_SHORTHAND } from '../utils';
+import { formatEmail, getKeyByValue, SUBJECT_SHORTHAND } from '../utils';
 import Markdown from '../components/Markdown';
 
 export default function ApprovalPage() {
@@ -116,7 +116,7 @@ export default function ApprovalPage() {
                     {getKeyByValue(SUBJECT_SHORTHAND, v.className)}: {v.topic}
                   </Heading>
                   <Text fontSize={'sm'} color="gray.500">
-                    Proposed By {v.displayName}
+                    Proposed By {formatEmail(v.email)}
                   </Text>
                   <Divider mt={2} />
                   <Markdown children={v.note} />
