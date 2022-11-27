@@ -1,8 +1,7 @@
 {
   "homepage": "http://Advayp.github.io/aia-website",
-  "name": "aia-website-prototype",
+  "name": "aia-website",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "@chakra-ui/icons": "^2.0.12",
     "@chakra-ui/react": "^2.4.1",

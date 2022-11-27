@@ -84,7 +84,7 @@ export default function Home() {
                       remove(v.id, v);
                     }}
                     key={idx}
-                    to={`/notes/propose/edit/${v.id}`}
+                    to={`/aia-website/notes/propose/edit/${v.id}`}
                   />
                 );
               })
