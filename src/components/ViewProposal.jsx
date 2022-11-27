@@ -6,7 +6,6 @@ import {
   Button,
   Text,
   useToast,
-  Link,
 } from '@chakra-ui/react';
 import NotificationBadge from './NotificationBadge';
 import { getKeyByValue, getProposalURL, SUBJECT_SHORTHAND } from '../utils';
