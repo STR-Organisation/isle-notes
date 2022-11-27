@@ -19,6 +19,7 @@ export default function TopicText({ textValue, onClick, highlighted }) {
             onClick(textValue);
           }}
           textAlign="center"
+          bgColor={'gray.50'}
         >
           {textValue}
         </Text>
