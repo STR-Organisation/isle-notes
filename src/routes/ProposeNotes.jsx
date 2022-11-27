@@ -31,7 +31,7 @@ export default function ProposeNotes() {
   const classRef = useRef();
   const topicRef = useRef();
 
-  const [note, setNote] = useState('Type here...');
+  const [note, setNote] = useState('# Proposal');
   const [isPreview, setIsPreview] = useState(false);
 
   const [user] = useAuthState(auth);
