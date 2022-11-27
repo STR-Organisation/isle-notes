@@ -2,9 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Navbar } from '../components/Navbar';
 import {
   Button,
-  Divider,
   Flex,
-  Heading,
   HStack,
   Input,
   Select,
