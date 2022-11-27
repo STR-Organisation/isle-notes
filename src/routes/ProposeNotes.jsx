@@ -32,6 +32,8 @@ export default function ProposeNotes() {
   const topicRef = useRef();
   const fileRef = useRef();
 
+  const [currentFileName, setCurrentFileName] = useState('');
+
   const [note, setNote] = useState('# Proposal');
   const [isPreview, setIsPreview] = useState(false);
 
@@ -44,7 +46,7 @@ export default function ProposeNotes() {
 
     let fileName = '';
     if (fileRef.current.files.length !== 0) {
-      fileName = fileRef.current.files[0].name + v4();
+      fileName = currentFileName + v4();
       const proposalRef = ref(storage, `proposals/${fileName}`);
       await uploadBytes(proposalRef, fileRef.current.files[0]);
     }
@@ -192,9 +194,15 @@ export default function ProposeNotes() {
                 display={'none'}
                 accept=".docx,.md,.doc"
                 ref={fileRef}
+                onChange={e => {
+                  setCurrentFileName(e.target.files[0].name);
+                }}
               />
               File Upload
             </FormLabel>
+            {currentFileName && (
+              <Text color="gray.500">File Name: {currentFileName}</Text>
+            )}
           </VStack>
         </GridItem>
         <GridItem colSpan={{ base: 2, lg: 6 }}>
