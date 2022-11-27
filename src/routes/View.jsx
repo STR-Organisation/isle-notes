@@ -29,7 +29,7 @@ export default function View() {
       const docSnap = await getDoc(docRef);
 
       if (!docSnap.exists()) {
-        navigate('/');
+        navigate('/aia-website/home');
       }
 
       const organizerQuery = query(
@@ -45,7 +45,7 @@ export default function View() {
       }
 
       if (docSnap.data().uid !== auth.currentUser.uid) {
-        navigate('/');
+        navigate('/aia-website/home');
       }
 
       setNote(docSnap.data().note);

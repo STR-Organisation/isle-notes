@@ -45,7 +45,7 @@ export default function EditProposal() {
       const docSnap = await getDoc(docRef);
 
       if (!docSnap.exists()) {
-        navigate('/');
+        navigate('/aia-website/home');
       }
 
       const organizerQuery = query(
@@ -62,7 +62,7 @@ export default function EditProposal() {
       }
 
       if (docSnap.data().uid !== auth.currentUser.uid) {
-        navigate('/');
+        navigate('/aia-website/home');
       }
 
       setData(docSnap.data());
@@ -91,7 +91,7 @@ export default function EditProposal() {
       position: 'bottom-left',
       duration: 3000,
     });
-    navigate('/notes/propose');
+    navigate('/aia-website/notes/propose');
   };
 
   return (
