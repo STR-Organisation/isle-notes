@@ -3,12 +3,13 @@ import {
   Flex,
   Heading,
   IconButton,
+  Link,
   useToast,
 } from '@chakra-ui/react';
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Router, useNavigate, useParams } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
-import { getKeyByValue, SUBJECT_SHORTHAND } from '../utils';
+import { getKeyByValue, getProposalURL, SUBJECT_SHORTHAND } from '../utils';
 import TopicText from '../components/TopicText';
 import Markdown from '../components/Markdown';
 import {
@@ -58,6 +59,8 @@ export default function SubjectNotes() {
 
   const topicsWithFiles = useRef({});
 
+  const downloadURLS = useRef({});
+
   const navigate = useNavigate();
 
   const toast = useToast();
@@ -94,12 +97,15 @@ export default function SubjectNotes() {
     };
     const fetchProposals = async () => {
       const data = await getDocs(q);
-      data.forEach(proposal => {
+      data.forEach(async proposal => {
         const { topic, note, fileName } = proposal.data();
         topics.current[topic] = note;
         topicRoutes.current[topic] = `/notes/propose/edit/${proposal.id}`;
         topicIds.current[topic] = proposal.id;
-        topicsWithFiles.current[topic] = !!fileName;
+        if (!fileName) return;
+        topicsWithFiles.current[topic] = true;
+        downloadURLS.current[topic] = await getProposalURL(fileName);
+        console.log(downloadURLS.current);
       });
     };
     fetchProposals();
@@ -136,7 +142,9 @@ export default function SubjectNotes() {
       <ButtonGroup position="absolute" bottom="2%" right="2%">
         {topicsWithFiles.current[currTopic] && (
           <>
-            <IconButton icon={<DownloadIcon />} colorScheme={'messenger'} />
+            <Link href={downloadURLS.current[currTopic]} download>
+              <IconButton icon={<DownloadIcon />} colorScheme={'messenger'} />
+            </Link>
           </>
         )}
         {isOrganizer && (
