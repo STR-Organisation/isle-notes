@@ -1,3 +1,6 @@
+import { getDownloadURL, ref } from 'firebase/storage';
+import { storage } from './firebase-config';
+
 export const getFirstName = displayName => {
   return displayName.split(' ')[0];
 };
@@ -83,4 +86,8 @@ export const getKeyByValue = (object, value) => {
 
 export const formatEmail = email => {
   return '@' + email.slice(0, email.indexOf('@'));
+};
+
+export const getProposalURL = async fileName => {
+  return await getDownloadURL(ref(storage, `proposals/${fileName}`));
 };
