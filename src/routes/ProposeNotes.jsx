@@ -17,9 +17,11 @@ import {
 } from '@chakra-ui/react';
 import { SUBJECT_SHORTHAND } from '../utils';
 import { addDoc, collection, updateDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase-config';
+import { auth, db, storage } from '../firebase-config';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Markdown from '../components/Markdown';
+import { ref, uploadBytes } from 'firebase/storage';
+import { v4 } from 'uuid';
 
 export default function ProposeNotes() {
   const toast = useToast();
@@ -28,6 +30,7 @@ export default function ProposeNotes() {
 
   const classRef = useRef();
   const topicRef = useRef();
+  const fileRef = useRef();
 
   const [note, setNote] = useState('# Proposal');
   const [isPreview, setIsPreview] = useState(false);
@@ -39,6 +42,13 @@ export default function ProposeNotes() {
       return;
     }
 
+    let fileName = '';
+    if (fileRef.current.files.length !== 0) {
+      fileName = fileRef.current.files[0].name + v4();
+      const proposalRef = ref(storage, `proposals/${fileName}`);
+      await uploadBytes(proposalRef, fileRef.current.files[0]);
+    }
+
     const data = {
       uid: user.uid,
       email: user.email,
@@ -47,9 +57,8 @@ export default function ProposeNotes() {
       note,
       status: 'none',
       viewed: false,
+      fileName,
     };
-
-    console.log(data);
 
     const d = await addDoc(proposalRef, data);
 
@@ -71,6 +80,7 @@ export default function ProposeNotes() {
     setNote('');
     topicRef.current.value = '';
     classRef.current.value = '';
+    fileRef.current.files = null;
   };
 
   const isValid = () => {
@@ -181,6 +191,7 @@ export default function ProposeNotes() {
                 type="file"
                 display={'none'}
                 accept=".docx,.md,.doc"
+                ref={fileRef}
               />
               File Upload
             </FormLabel>
