@@ -24,20 +24,16 @@ export function Dashboard() {
     <>
       {profile ? (
         <Flex flexWrap={'wrap'}>
-          {profile[0] ? (
-            profile[0].classes.map((e, idx) => {
-              return (
-                <SubjectDisplay
-                  image={SUBJECT_PICTURES[SUBJECT_SHORTHAND[e]]}
-                  title={e}
-                  to={`/aia-website/notes/${SUBJECT_SHORTHAND[e]}`}
-                  key={idx}
-                />
-              );
-            })
-          ) : (
-            <></>
-          )}
+          {profile[0].classes.map((e, idx) => {
+            return (
+              <SubjectDisplay
+                image={SUBJECT_PICTURES[SUBJECT_SHORTHAND[e]]}
+                title={e}
+                to={`/aia-website/notes/${SUBJECT_SHORTHAND[e]}`}
+                key={idx}
+              />
+            );
+          })}
         </Flex>
       ) : (
         <CenteredSpinner />
