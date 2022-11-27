@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Divider,
   Flex,
@@ -6,9 +6,10 @@ import {
   Button,
   Text,
   useToast,
+  Link,
 } from '@chakra-ui/react';
 import NotificationBadge from './NotificationBadge';
-import { getKeyByValue, SUBJECT_SHORTHAND } from '../utils';
+import { getKeyByValue, getProposalURL, SUBJECT_SHORTHAND } from '../utils';
 import { DownloadIcon, EditIcon } from '@chakra-ui/icons';
 import { BsEye, BsTrash } from 'react-icons/bs';
 import { Link as RouterLink } from 'react-router-dom';
@@ -17,6 +18,8 @@ import { db } from '../firebase-config';
 
 export default function ViewProposal({ proposal, onDelete, ...props }) {
   const { status, className, topic, id, fileName } = proposal;
+
+  const [fileURL, setFileURL] = useState();
 
   const toast = useToast();
 
@@ -43,6 +46,14 @@ export default function ViewProposal({ proposal, onDelete, ...props }) {
       position: 'bottom-left',
     });
   };
+
+  useEffect(() => {
+    const initializeFileURL = async () => {
+      if (!fileName) return;
+      setFileURL(await getProposalURL(fileName));
+    };
+    initializeFileURL();
+  }, []);
 
   return (
     <>
@@ -78,13 +89,15 @@ export default function ViewProposal({ proposal, onDelete, ...props }) {
               </Button>
             </RouterLink>
             {!!fileName && (
-              <Button
-                colorScheme={'messenger'}
-                leftIcon={<DownloadIcon />}
-                size="sm"
-              >
-                Download
-              </Button>
+              <a href={fileURL} download>
+                <Button
+                  colorScheme={'messenger'}
+                  leftIcon={<DownloadIcon />}
+                  size="sm"
+                >
+                  Download
+                </Button>
+              </a>
             )}
             <RouterLink to={`/notes/propose/edit/${id}`}>
               <Button colorScheme={'teal'} size={'sm'} leftIcon={<EditIcon />}>
