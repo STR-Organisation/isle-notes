@@ -241,7 +241,7 @@ export default function ProfilePage() {
       ) : (
         <>
           <Flex w={'100%'} justify="center">
-            <Spinner color="tomato" />
+            <Spinner color="messenger.500" />
           </Flex>
         </>
       )}
