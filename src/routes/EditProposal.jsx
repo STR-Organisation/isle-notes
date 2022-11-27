@@ -205,7 +205,7 @@ export default function EditProposal() {
                 {isPreview && (
                   <Box
                     w="100%"
-                    h="100%"
+                    h="93vh"
                     bg={'gray.50'}
                     borderRadius="none"
                     borderTop={'none'}
