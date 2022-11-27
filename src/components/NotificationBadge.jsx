@@ -5,13 +5,13 @@ export default function NotificationBadge({ text, ...props }) {
   const textMap = {
     approved: 'Approved',
     rejected: 'Rejected',
-    none: 'N/A',
+    none: 'Pending',
   };
 
   const colorMap = {
     approved: 'green',
     rejected: 'red',
-    none: 'blue',
+    none: 'purple',
   };
 
   return (
