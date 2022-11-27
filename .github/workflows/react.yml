@@ -2,9 +2,7 @@ name: React app deployement
 
 on:
   push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+    branches: main
 
 env:
   REACT_APP_FIREBASE_API_KEY: ${{secrets.REACT_APP_FIREBASE_API_KEY}}
