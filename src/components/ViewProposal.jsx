@@ -9,14 +9,14 @@ import {
 } from '@chakra-ui/react';
 import NotificationBadge from './NotificationBadge';
 import { getKeyByValue, SUBJECT_SHORTHAND } from '../utils';
-import { EditIcon } from '@chakra-ui/icons';
+import { DownloadIcon, EditIcon } from '@chakra-ui/icons';
 import { BsEye, BsTrash } from 'react-icons/bs';
 import { Link as RouterLink } from 'react-router-dom';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase-config';
 
 export default function ViewProposal({ proposal, onDelete, ...props }) {
-  const { status, className, topic, id } = proposal;
+  const { status, className, topic, id, fileName } = proposal;
 
   const toast = useToast();
 
@@ -47,7 +47,7 @@ export default function ViewProposal({ proposal, onDelete, ...props }) {
   return (
     <>
       <Flex
-        w="45ch"
+        w="50ch"
         h={'13vh'}
         border="1px"
         borderColor={'gray.200'}
@@ -77,6 +77,15 @@ export default function ViewProposal({ proposal, onDelete, ...props }) {
                 View
               </Button>
             </RouterLink>
+            {!!fileName && (
+              <Button
+                colorScheme={'messenger'}
+                leftIcon={<DownloadIcon />}
+                size="sm"
+              >
+                Download
+              </Button>
+            )}
             <RouterLink to={`/notes/propose/edit/${id}`}>
               <Button colorScheme={'teal'} size={'sm'} leftIcon={<EditIcon />}>
                 Edit
