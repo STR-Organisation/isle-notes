@@ -24,7 +24,7 @@ export function Dashboard() {
     <>
       {profile ? (
         <Flex flexWrap={'wrap'}>
-          {profile[0] ??
+          {profile[0] ? (
             profile[0].classes.map((e, idx) => {
               return (
                 <SubjectDisplay
@@ -34,7 +34,10 @@ export function Dashboard() {
                   key={idx}
                 />
               );
-            })}
+            })
+          ) : (
+            <></>
+          )}
         </Flex>
       ) : (
         <CenteredSpinner />
