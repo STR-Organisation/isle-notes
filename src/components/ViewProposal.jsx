@@ -82,7 +82,7 @@ export default function ViewProposal({ proposal, onDelete, ...props }) {
         <Divider />
         <Flex flexDir={'column'} align="center" h="100%">
           <HStack mt={3}>
-            <RouterLink to={`/view/${id}`}>
+            <RouterLink to={`/aia-website/view/${id}`}>
               <Button size="sm" colorScheme={'gray'} leftIcon={<BsEye />}>
                 View
               </Button>
@@ -98,7 +98,7 @@ export default function ViewProposal({ proposal, onDelete, ...props }) {
                 </Button>
               </a>
             )}
-            <RouterLink to={`/notes/propose/edit/${id}`}>
+            <RouterLink to={`/aia-website/notes/propose/edit/${id}`}>
               <Button colorScheme={'teal'} size={'sm'} leftIcon={<EditIcon />}>
                 Edit
               </Button>

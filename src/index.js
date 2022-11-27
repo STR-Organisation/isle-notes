@@ -22,46 +22,44 @@ const root = ReactDOM.createRoot(container);
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/aia-website',
     element: <App />,
   },
   {
-    path: '/profile',
+    path: '/aia-website/profile',
     element: <ProfilePage />,
   },
   {
-    path: '/notes/:subject',
+    path: '/aia-website/notes/:subject',
     element: <SubjectNotes />,
   },
   {
-    path: '/notes/propose',
+    path: '/aia-website/notes/propose',
     element: <ProposeNotes />,
   },
   {
-    path: '/organizer/approve',
+    path: '/aia-website/organizer/approve',
     element: <ApprovalPage />,
   },
   {
-    path: '/notes/propose/edit/:id',
+    path: '/aia-website/notes/propose/edit/:id',
     element: <EditProposal />,
   },
   {
-    path: '/notes/propose/all',
+    path: '/aia-website/notes/propose/all',
     element: <AllProposals />,
   },
   {
-    path: '/view/:id',
+    path: '/aia-website/view/:id',
     element: <View />,
   },
 ]);
 
 root.render(
   <StrictMode>
-    <HashRouter>
-      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-      <ChakraProvider theme={theme}>
-        <RouterProvider router={router} />
-      </ChakraProvider>
-    </HashRouter>
+    <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+    <ChakraProvider theme={theme}>
+      <RouterProvider router={router} />
+    </ChakraProvider>
   </StrictMode>
 );

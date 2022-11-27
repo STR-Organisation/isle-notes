@@ -48,7 +48,7 @@ export default function PendingProposal({
         </Text>
         <Divider mt={2} />
         <Flex w={'100%'} justify={'space-evenly'} mt={4}>
-          <RouterLink to={`/view/${id}`}>
+          <RouterLink to={`/aia-website/view/${id}`}>
             <Button w="12ch" leftIcon={<BsEye />}>
               View
             </Button>

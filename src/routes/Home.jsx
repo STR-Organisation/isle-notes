@@ -64,7 +64,7 @@ export default function Home() {
             My Proposals
           </Heading>
 
-          <RouterLink to="/notes/propose/all">
+          <RouterLink to="/aia-website/notes/propose/all">
             <Link>
               <Text color={'gray.500'} pl={3} pb={3} fontSize="sm">
                 All Proposals <ExternalLinkIcon />{' '}
@@ -89,7 +89,7 @@ export default function Home() {
                 );
               })
             ) : (
-              <RouterLink to="/notes/propose">
+              <RouterLink to="/aia-website/notes/propose">
                 <Flex>
                   <Button w="80%" mx={'auto'} mt={2} colorScheme={'messenger'}>
                     New Proposal
