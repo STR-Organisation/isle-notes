@@ -1,11 +1,4 @@
-import {
-  Heading,
-  Flex,
-  Button,
-  useToast,
-  Divider,
-  Text,
-} from '@chakra-ui/react';
+import { Flex, useToast, Text } from '@chakra-ui/react';
 import {
   collection,
   doc,
@@ -21,10 +14,6 @@ import { Navbar } from '../components/Navbar';
 import { auth, db } from '../firebase-config';
 import CenteredSpinner from '../components/CenteredSpinner';
 import { useNavigate } from 'react-router-dom';
-import { formatEmail, getKeyByValue, SUBJECT_SHORTHAND } from '../utils';
-import { DownloadIcon } from '@chakra-ui/icons';
-import { BsEye } from 'react-icons/bs';
-import { Link as RouterLink } from 'react-router-dom';
 import PendingProposal from '../components/PendingProposal';
 
 export default function ApprovalPage() {
