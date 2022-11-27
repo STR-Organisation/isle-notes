@@ -23,6 +23,8 @@ import CenteredSpinner from '../components/CenteredSpinner';
 import { useNavigate } from 'react-router-dom';
 import { formatEmail, getKeyByValue, SUBJECT_SHORTHAND } from '../utils';
 import Markdown from '../components/Markdown';
+import { DownloadIcon } from '@chakra-ui/icons';
+import { BsEye } from 'react-icons/bs';
 
 export default function ApprovalPage() {
   const organizerTableRef = collection(db, 'organizers');
@@ -120,12 +122,24 @@ export default function ApprovalPage() {
                       Proposed By {formatEmail(v.email)}
                     </Text>
                     <Divider mt={2} />
-                    <Markdown children={v.note} />
-                    <Divider />
                     <Flex w={'100%'} justify={'space-evenly'} mt={4}>
+                      <Button w="12ch" leftIcon={<BsEye />}>
+                        View
+                      </Button>
+                      {v.fileName && (
+                        <Button
+                          ml={2}
+                          colorScheme={'messenger'}
+                          leftIcon={<DownloadIcon />}
+                          w="15ch"
+                        >
+                          Download
+                        </Button>
+                      )}
                       <Button
+                        ml={2}
                         colorScheme={'green'}
-                        w={'17ch'}
+                        w={'12ch'}
                         onClick={() => {
                           approve(v.id, v);
                         }}
@@ -133,10 +147,15 @@ export default function ApprovalPage() {
                         Approve
                       </Button>
                       <Button
-                        colorScheme={'red'}
-                        w={'17ch'}
+                        ml={2}
+                        bgColor="red.300"
+                        color="white"
+                        w={'12ch'}
                         onClick={() => {
                           reject(v.id, v);
+                        }}
+                        _hover={{
+                          bgColor: 'red.500',
                         }}
                       >
                         Reject
