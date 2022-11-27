@@ -16,6 +16,7 @@ import ApprovalPage from './routes/ApprovalPage.jsx';
 import EditProposal from './routes/EditProposal.jsx';
 import AllProposals from './routes/AllProposals.jsx';
 import View from './routes/View.jsx';
+import Home from './routes/Home.jsx';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: '/aia-website',
     element: <App />,
+  },
+  {
+    path: '/aia-website/home',
+    element: <Home />,
   },
   {
     path: '/aia-website/profile',
@@ -56,10 +61,10 @@ const router = createBrowserRouter([
 ]);
 
 root.render(
-  <StrictMode>
+  <>
     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
     <ChakraProvider theme={theme}>
       <RouterProvider router={router} />
     </ChakraProvider>
-  </StrictMode>
+  </>
 );

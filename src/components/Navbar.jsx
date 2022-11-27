@@ -50,7 +50,7 @@ export const Navbar = () => {
         bgColor="messenger.600"
         zIndex={'overlay'}
       >
-        <RouterLink to={'/aia-website'}>
+        <RouterLink to={'/aia-website/home'}>
           <Link ml={5} fontWeight="black" fontSize={'2xl'}>
             ISLE
           </Link>
