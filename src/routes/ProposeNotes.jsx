@@ -46,7 +46,7 @@ export default function ProposeNotes() {
 
     let fileName = '';
     if (fileRef.current.files.length !== 0) {
-      fileName = currentFileName + v4();
+      fileName = v4() + currentFileName;
       const proposalRef = ref(storage, `proposals/${fileName}`);
       await uploadBytes(proposalRef, fileRef.current.files[0]);
     }
