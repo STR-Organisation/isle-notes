@@ -25,6 +25,7 @@ import { formatEmail, getKeyByValue, SUBJECT_SHORTHAND } from '../utils';
 import { DownloadIcon } from '@chakra-ui/icons';
 import { BsEye } from 'react-icons/bs';
 import { Link as RouterLink } from 'react-router-dom';
+import PendingProposal from '../components/PendingProposal';
 
 export default function ApprovalPage() {
   const organizerTableRef = collection(db, 'organizers');
@@ -105,65 +106,12 @@ export default function ApprovalPage() {
             proposals.map((v, idx) => {
               return (
                 <>
-                  <Flex
-                    flexDir={'column'}
+                  <PendingProposal
+                    proposal={v}
                     key={idx}
-                    border="1px"
-                    p={4}
-                    marginBlock={2}
-                    borderColor="gray.200"
-                    borderRadius={'lg'}
-                    minW="40vw"
-                  >
-                    <Heading fontSize={'lg'}>
-                      {getKeyByValue(SUBJECT_SHORTHAND, v.className)}: {v.topic}
-                    </Heading>
-                    <Text fontSize={'sm'} color="gray.500">
-                      Proposed By {formatEmail(v.email)}
-                    </Text>
-                    <Divider mt={2} />
-                    <Flex w={'100%'} justify={'space-evenly'} mt={4}>
-                      <RouterLink to={`/view/${v.id}`}>
-                        <Button w="12ch" leftIcon={<BsEye />}>
-                          View
-                        </Button>
-                      </RouterLink>
-                      {v.fileName && (
-                        <Button
-                          ml={2}
-                          colorScheme={'messenger'}
-                          leftIcon={<DownloadIcon />}
-                          w="15ch"
-                        >
-                          Download
-                        </Button>
-                      )}
-                      <Button
-                        ml={2}
-                        colorScheme={'green'}
-                        w={'12ch'}
-                        onClick={() => {
-                          approve(v.id, v);
-                        }}
-                      >
-                        Approve
-                      </Button>
-                      <Button
-                        ml={2}
-                        bgColor="red.300"
-                        color="white"
-                        w={'12ch'}
-                        onClick={() => {
-                          reject(v.id, v);
-                        }}
-                        _hover={{
-                          bgColor: 'red.500',
-                        }}
-                      >
-                        Reject
-                      </Button>
-                    </Flex>
-                  </Flex>
+                    approve={approve}
+                    reject={reject}
+                  />
                 </>
               );
             })
