@@ -22,9 +22,9 @@ import { auth, db } from '../firebase-config';
 import CenteredSpinner from '../components/CenteredSpinner';
 import { useNavigate } from 'react-router-dom';
 import { formatEmail, getKeyByValue, SUBJECT_SHORTHAND } from '../utils';
-import Markdown from '../components/Markdown';
 import { DownloadIcon } from '@chakra-ui/icons';
 import { BsEye } from 'react-icons/bs';
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function ApprovalPage() {
   const organizerTableRef = collection(db, 'organizers');
@@ -123,9 +123,11 @@ export default function ApprovalPage() {
                     </Text>
                     <Divider mt={2} />
                     <Flex w={'100%'} justify={'space-evenly'} mt={4}>
-                      <Button w="12ch" leftIcon={<BsEye />}>
-                        View
-                      </Button>
+                      <RouterLink to={`/view/${v.id}`}>
+                        <Button w="12ch" leftIcon={<BsEye />}>
+                          View
+                        </Button>
+                      </RouterLink>
                       {v.fileName && (
                         <Button
                           ml={2}
