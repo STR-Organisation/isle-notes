@@ -22,7 +22,7 @@ import {
 } from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { CloseIcon, EditIcon } from '@chakra-ui/icons';
+import { CloseIcon, DownloadIcon, EditIcon } from '@chakra-ui/icons';
 import { Link as RouterLink } from 'react-router-dom';
 
 export default function SubjectNotes() {
@@ -55,6 +55,8 @@ export default function SubjectNotes() {
   });
 
   const topicIds = useRef({});
+
+  const topicsWithFiles = useRef({});
 
   const navigate = useNavigate();
 
@@ -93,10 +95,11 @@ export default function SubjectNotes() {
     const fetchProposals = async () => {
       const data = await getDocs(q);
       data.forEach(proposal => {
-        const { topic, note } = proposal.data();
+        const { topic, note, fileName } = proposal.data();
         topics.current[topic] = note;
         topicRoutes.current[topic] = `/notes/propose/edit/${proposal.id}`;
         topicIds.current[topic] = proposal.id;
+        topicsWithFiles.current[topic] = !!fileName;
       });
     };
     fetchProposals();
@@ -130,19 +133,26 @@ export default function SubjectNotes() {
   return (
     <>
       <Navbar />
-      {isOrganizer && (
-        <ButtonGroup position="absolute" bottom="2%" right="2%">
-          <RouterLink to={topicRoutes.current[currTopic]}>
-            <IconButton icon={<EditIcon />} colorScheme="messenger" />
-          </RouterLink>
-          <IconButton
-            fontSize="xs"
-            icon={<CloseIcon />}
-            colorScheme="messenger"
-            onClick={rejectCurrentProposal}
-          />
-        </ButtonGroup>
-      )}
+      <ButtonGroup position="absolute" bottom="2%" right="2%">
+        {topicsWithFiles.current[currTopic] && (
+          <>
+            <IconButton icon={<DownloadIcon />} colorScheme={'messenger'} />
+          </>
+        )}
+        {isOrganizer && (
+          <>
+            <RouterLink to={topicRoutes.current[currTopic]}>
+              <IconButton icon={<EditIcon />} colorScheme="messenger" />
+            </RouterLink>
+            <IconButton
+              fontSize="xs"
+              icon={<CloseIcon />}
+              colorScheme="messenger"
+              onClick={rejectCurrentProposal}
+            />
+          </>
+        )}
+      </ButtonGroup>
       <Flex overflowX={'hidden'} overflowY="auto">
         <Flex
           borderRight="1px"
