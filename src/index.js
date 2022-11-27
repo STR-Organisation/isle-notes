@@ -3,7 +3,11 @@ import React, { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import App from './App.js';
 import theme from './theme.js';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  HashRouter,
+  RouterProvider,
+} from 'react-router-dom';
 import ProfilePage from './routes/ProfilePage';
 import SubjectNotes from './routes/SubjectNotes';
 import './index.css';
@@ -53,9 +57,11 @@ const router = createBrowserRouter([
 
 root.render(
   <StrictMode>
-    <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-    <ChakraProvider theme={theme}>
-      <RouterProvider router={router} />
-    </ChakraProvider>
+    <HashRouter>
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+      <ChakraProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ChakraProvider>
+    </HashRouter>
   </StrictMode>
 );
