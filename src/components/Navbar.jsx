@@ -105,6 +105,9 @@ export const Navbar = () => {
                     <RouterLink to="/notes/propose">
                       <MenuItem>Propose Notes</MenuItem>
                     </RouterLink>
+                    <RouterLink to="/notes/propose/all">
+                      <MenuItem>All Proposals</MenuItem>
+                    </RouterLink>
                   </MenuList>
                 </Menu>
                 <Menu>
