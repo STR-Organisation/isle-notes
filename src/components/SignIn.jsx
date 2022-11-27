@@ -6,6 +6,7 @@ import { getFirstName, getLastName } from '../utils';
 
 export default function SignIn() {
   const userProfileRef = collection(db, 'userProfile');
+  const organizerRef = collection(db, 'organizers');
 
   const signIn = async () => {
     signInWithGoogle();
@@ -23,7 +24,13 @@ export default function SignIn() {
       path: 'none',
     };
 
+    const organizerData = {
+      uid: auth.currentUser.uid,
+      isOrganizer: false,
+    };
+
     await addDoc(userProfileRef, data);
+    await addDoc(organizerRef, organizerData);
   };
 
   return (
