@@ -52,7 +52,7 @@ export default function SubjectNotes() {
   });
 
   const topicRoutes = useRef({
-    default: `/notes/${subject}`,
+    default: `aia-website/notes/${subject}`,
   });
 
   const topicIds = useRef({});
