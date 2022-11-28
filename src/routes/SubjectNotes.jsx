@@ -135,7 +135,7 @@ export default function SubjectNotes() {
       duration: 3000,
       position: 'bottom-left',
     });
-    navigate('/');
+    navigate('/aia-website');
   };
 
   return (
