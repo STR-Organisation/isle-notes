@@ -50,7 +50,7 @@ export const Navbar = () => {
         bgColor="messenger.600"
         zIndex={'overlay'}
       >
-        <RouterLink to={'/aia-website/home'}>
+        <RouterLink to={'/home'}>
           <Link ml={5} fontWeight="black" fontSize={'2xl'}>
             ISLE
           </Link>
@@ -79,7 +79,7 @@ export const Navbar = () => {
                           Organizer
                         </MenuButton>
                         <MenuList color="black">
-                          <RouterLink to="/aia-website/organizer/approve">
+                          <RouterLink to="/organizer/approve">
                             <MenuItem>Manage Propositions</MenuItem>
                           </RouterLink>
                         </MenuList>
@@ -102,10 +102,10 @@ export const Navbar = () => {
                     Contribute
                   </MenuButton>
                   <MenuList color="black">
-                    <RouterLink to="/aia-website/notes/propose">
+                    <RouterLink to="/notes/propose">
                       <MenuItem>Propose Notes</MenuItem>
                     </RouterLink>
-                    <RouterLink to="/aia-website/notes/propose/all">
+                    <RouterLink to="/notes/propose/all">
                       <MenuItem>All Proposals</MenuItem>
                     </RouterLink>
                   </MenuList>
@@ -125,7 +125,7 @@ export const Navbar = () => {
                       return (
                         <RouterLink
                           key={idx}
-                          to={`/aia-website/notes/${SUBJECT_SHORTHAND[e]}`}
+                          to={`/notes/${SUBJECT_SHORTHAND[e]}`}
                         >
                           <MenuItem>{e}</MenuItem>
                         </RouterLink>
@@ -142,7 +142,7 @@ export const Navbar = () => {
                 <ProfilePhoto src={user.photoURL} mr={10} />
               </MenuButton>
               <MenuList color={'black'}>
-                <RouterLink to="/aia-website/profile">
+                <RouterLink to="/profile">
                   <MenuItem icon={<BsFillPersonFill />}>Account</MenuItem>
                 </RouterLink>
                 <MenuItem icon={<CgLogOut />} onClick={Logout}>

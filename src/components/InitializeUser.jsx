@@ -19,7 +19,7 @@ export default function InitializeUser() {
       const docData = await getDocs(validationQuery);
 
       if (docData.docs.length > 0) {
-        navigate('/aia-website/home');
+        navigate('/home');
         return;
       }
 
@@ -39,7 +39,7 @@ export default function InitializeUser() {
       await addDoc(userProfileRef, data);
       await addDoc(organizerRef, organizerData);
 
-      navigate('/aia-website/home');
+      navigate('/home');
     };
     checkStatus();
   }, []);

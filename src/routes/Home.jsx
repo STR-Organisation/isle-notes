@@ -64,7 +64,7 @@ export default function Home() {
             My Proposals
           </Heading>
 
-          <RouterLink to="/aia-website/notes/propose/all">
+          <RouterLink to="/notes/propose/all">
             <Link>
               <Text color={'gray.500'} pl={3} pb={3} fontSize="sm">
                 All Proposals <ExternalLinkIcon />{' '}
@@ -84,12 +84,12 @@ export default function Home() {
                       remove(v.id, v);
                     }}
                     key={idx}
-                    to={`/aia-website/notes/propose/edit/${v.id}`}
+                    to={`/notes/propose/edit/${v.id}`}
                   />
                 );
               })
             ) : (
-              <RouterLink to="/aia-website/notes/propose">
+              <RouterLink to="/notes/propose">
                 <Flex>
                   <Button w="80%" mx={'auto'} mt={2} colorScheme={'messenger'}>
                     New Proposal

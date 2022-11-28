@@ -100,9 +100,7 @@ export default function SubjectNotes() {
       data.forEach(async proposal => {
         const { topic, note, fileName } = proposal.data();
         topics.current[topic] = note;
-        topicRoutes.current[
-          topic
-        ] = `/aia-website/notes/propose/edit/${proposal.id}`;
+        topicRoutes.current[topic] = `/notes/propose/edit/${proposal.id}`;
         topicIds.current[topic] = proposal.id;
         if (!fileName) return;
         topicsWithFiles.current[topic] = true;
@@ -135,7 +133,7 @@ export default function SubjectNotes() {
       duration: 3000,
       position: 'bottom-left',
     });
-    navigate('/aia-website');
+    navigate('/');
   };
 
   return (

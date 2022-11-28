@@ -29,7 +29,7 @@ export function Dashboard() {
               <SubjectDisplay
                 image={SUBJECT_PICTURES[SUBJECT_SHORTHAND[e]]}
                 title={e}
-                to={`/aia-website/notes/${SUBJECT_SHORTHAND[e]}`}
+                to={`/notes/${SUBJECT_SHORTHAND[e]}`}
                 key={idx}
               />
             );

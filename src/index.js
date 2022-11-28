@@ -3,11 +3,7 @@ import React, { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import App from './App.js';
 import theme from './theme.js';
-import {
-  createBrowserRouter,
-  HashRouter,
-  RouterProvider,
-} from 'react-router-dom';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 import ProfilePage from './routes/ProfilePage';
 import SubjectNotes from './routes/SubjectNotes';
 import './index.css';
@@ -21,44 +17,49 @@ import Home from './routes/Home.jsx';
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 
-const router = createBrowserRouter([
+const router = createHashRouter(
+  [
+    {
+      path: '/',
+      element: <App />,
+    },
+    {
+      path: '/home',
+      element: <Home />,
+    },
+    {
+      path: '/profile',
+      element: <ProfilePage />,
+    },
+    {
+      path: '/notes/:subject',
+      element: <SubjectNotes />,
+    },
+    {
+      path: '/notes/propose',
+      element: <ProposeNotes />,
+    },
+    {
+      path: '/organizer/approve',
+      element: <ApprovalPage />,
+    },
+    {
+      path: '/notes/propose/edit/:id',
+      element: <EditProposal />,
+    },
+    {
+      path: '/notes/propose/all',
+      element: <AllProposals />,
+    },
+    {
+      path: '/view/:id',
+      element: <View />,
+    },
+  ],
   {
-    path: '/aia-website',
-    element: <App />,
-  },
-  {
-    path: '/aia-website/home',
-    element: <Home />,
-  },
-  {
-    path: '/aia-website/profile',
-    element: <ProfilePage />,
-  },
-  {
-    path: '/aia-website/notes/:subject',
-    element: <SubjectNotes />,
-  },
-  {
-    path: '/aia-website/notes/propose',
-    element: <ProposeNotes />,
-  },
-  {
-    path: '/aia-website/organizer/approve',
-    element: <ApprovalPage />,
-  },
-  {
-    path: '/aia-website/notes/propose/edit/:id',
-    element: <EditProposal />,
-  },
-  {
-    path: '/aia-website/notes/propose/all',
-    element: <AllProposals />,
-  },
-  {
-    path: '/aia-website/view/:id',
-    element: <View />,
-  },
-]);
+    basename: '/',
+  }
+);
 
 root.render(
   <>
