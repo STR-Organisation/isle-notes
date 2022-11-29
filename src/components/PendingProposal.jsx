@@ -38,6 +38,7 @@ export default function PendingProposal({
         borderColor="gray.200"
         borderRadius={'lg'}
         minW="40vw"
+        boxShadow={'md'}
         {...props}
       >
         <Heading fontSize={'lg'}>

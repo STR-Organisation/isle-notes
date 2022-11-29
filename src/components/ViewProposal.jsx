@@ -70,6 +70,7 @@ export default function ViewProposal({ proposal, onDelete, ...props }) {
         transition="all 200ms ease"
         cursor="pointer"
         flexDir={'column'}
+        boxShadow="md"
         {...props}
       >
         <Text fontSize={'md'} fontWeight="semibold">
