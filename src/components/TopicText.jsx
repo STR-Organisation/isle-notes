@@ -7,7 +7,7 @@ export default function TopicText({ textValue, onClick, highlighted }) {
       {highlighted ? (
         <Text
           cursor={'pointer'}
-          fontSize={'lg'}
+          fontSize={'md'}
           color="black"
           fontWeight={'semibold'}
           mx="4"

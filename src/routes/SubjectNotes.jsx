@@ -1,4 +1,5 @@
 import {
+  Box,
   ButtonGroup,
   Flex,
   Heading,
@@ -139,7 +140,7 @@ export default function SubjectNotes() {
   return (
     <>
       <Navbar />
-      <ButtonGroup position="absolute" bottom="2%" right="2%">
+      <ButtonGroup position="fixed" bottom="2%" right="2%">
         {topicsWithFiles.current[currTopic] && (
           <>
             <Link href={downloadURLS.current[currTopic]} download>
@@ -175,7 +176,7 @@ export default function SubjectNotes() {
         >
           <Heading
             mt={5}
-            fontSize={'lg'}
+            fontSize={'md'}
             cursor="pointer"
             onClick={() => {
               setCurrTopic('default');
@@ -197,7 +198,9 @@ export default function SubjectNotes() {
             );
           })}
         </Flex>
-        <Markdown>{topics.current[currTopic]}</Markdown>
+        <Box pb={10} maxH="93vh">
+          <Markdown>{topics.current[currTopic]}</Markdown>
+        </Box>
       </Flex>
     </>
   );
