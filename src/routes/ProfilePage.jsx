@@ -9,6 +9,7 @@ import {
   Select,
   Button,
   Spinner,
+  useToast,
 } from '@chakra-ui/react';
 import {
   addDoc,
@@ -22,6 +23,7 @@ import {
 import React, { useRef } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useNavigate } from 'react-router-dom';
 import CustomCheckbox from '../components/CustomCheckbox';
 import { Navbar } from '../components/Navbar';
 import { auth, db } from '../firebase-config';
@@ -68,6 +70,9 @@ export default function ProfilePage() {
   const pathRef = useRef();
   const userProfileRef = collection(db, 'userProfile');
 
+  const toast = useToast();
+  const navigate = useNavigate();
+
   const q = query(userProfileRef, where('uid', '==', user.uid));
   const [profile] = useCollectionData(q, {
     idField: 'id',
@@ -100,6 +105,16 @@ export default function ProfilePage() {
       const userDoc = doc(db, 'userProfile', d.id);
       await updateDoc(userDoc, data);
     });
+
+    toast({
+      title: 'Updated User',
+      duration: 3000,
+      description: 'Your account has been updated.',
+      status: 'success',
+      position: 'bottom-left',
+    });
+
+    navigate('/');
   };
 
   const addClass = cls => {
