@@ -198,7 +198,7 @@ export default function SubjectNotes() {
             );
           })}
         </Flex>
-        <Box pb={10} maxH="93vh">
+        <Box pb={10} maxH="93vh" w="100%">
           <Markdown>{topics.current[currTopic]}</Markdown>
         </Box>
       </Flex>
