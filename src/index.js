@@ -1,5 +1,5 @@
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
-import React, { StrictMode } from 'react';
+import React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import App from './App.js';
 import theme from './theme.js';
@@ -13,6 +13,7 @@ import EditProposal from './routes/EditProposal.jsx';
 import AllProposals from './routes/AllProposals.jsx';
 import View from './routes/View.jsx';
 import Home from './routes/Home.jsx';
+import MyEditor from './components/MyEditor.jsx';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
@@ -54,6 +55,10 @@ const router = createHashRouter(
     {
       path: '/view/:id',
       element: <View />,
+    },
+    {
+      path: '/test',
+      element: <MyEditor />,
     },
   ],
   {

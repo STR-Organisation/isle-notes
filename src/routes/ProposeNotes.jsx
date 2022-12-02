@@ -22,6 +22,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import Markdown from '../components/Markdown';
 import { ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
+import MyEditor from '../components/MyEditor';
 
 export default function ProposeNotes() {
   const toast = useToast();
@@ -205,30 +206,8 @@ export default function ProposeNotes() {
             )}
           </VStack>
         </GridItem>
-        <GridItem colSpan={{ base: 2, lg: 6 }}>
-          <Flex flexDirection="column" align="center">
-            {!isPreview && (
-              <Textarea
-                w="100%"
-                h="93vh"
-                onChange={e => setNote(e.target.value)}
-                value={note}
-                borderRadius="none"
-                borderTop={'none'}
-              />
-            )}
-            {isPreview && (
-              <Box
-                w="100%"
-                h="93vh"
-                bg={'gray.50'}
-                borderRadius="none"
-                borderTop={'none'}
-              >
-                <Markdown>{note}</Markdown>
-              </Box>
-            )}
-          </Flex>
+        <GridItem colSpan={{ base: 2, lg: 6 }} h="93vh">
+          <MyEditor setText={setNote} />
         </GridItem>
       </Grid>
     </>
