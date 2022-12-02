@@ -56,10 +56,6 @@ const router = createHashRouter(
       path: '/view/:id',
       element: <View />,
     },
-    {
-      path: '/test',
-      element: <MyEditor />,
-    },
   ],
   {
     basename: '/',
