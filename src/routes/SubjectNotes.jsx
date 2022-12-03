@@ -198,7 +198,7 @@ export default function SubjectNotes() {
             );
           })}
         </Flex>
-        <Box pb={10} maxH="93vh" w="100%">
+        <Box maxH="93vh" w="100%" pl={5}>
           <div
             dangerouslySetInnerHTML={{ __html: topics.current[currTopic] }}
           ></div>
