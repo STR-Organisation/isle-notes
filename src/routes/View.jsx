@@ -55,14 +55,8 @@ export default function View() {
   return (
     <>
       <Navbar />
-      <Box
-        w="100%"
-        h="93vh"
-        bg={'gray.50'}
-        borderRadius="none"
-        borderTop={'none'}
-      >
-        <Markdown>{note}</Markdown>
+      <Box w="100%" borderRadius="none" borderTop={'none'}>
+        <div dangerouslySetInnerHTML={{ __html: note }}></div>
       </Box>
     </>
   );
