@@ -199,7 +199,9 @@ export default function SubjectNotes() {
           })}
         </Flex>
         <Box pb={10} maxH="93vh" w="100%">
-          <Markdown>{topics.current[currTopic]}</Markdown>
+          <div
+            dangerouslySetInnerHTML={{ __html: topics.current[currTopic] }}
+          ></div>
         </Box>
       </Flex>
     </>

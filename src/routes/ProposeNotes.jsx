@@ -2,12 +2,10 @@ import React, { useRef, useState } from 'react';
 import { Navbar } from '../components/Navbar';
 import {
   Button,
-  Flex,
   HStack,
   Input,
   Select,
   Text,
-  Textarea,
   VStack,
   Box,
   useToast,
@@ -19,7 +17,6 @@ import { SUBJECT_SHORTHAND } from '../utils';
 import { addDoc, collection, updateDoc } from 'firebase/firestore';
 import { auth, db, storage } from '../firebase-config';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import Markdown from '../components/Markdown';
 import { ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
 import MyEditor from '../components/MyEditor';
@@ -36,7 +33,6 @@ export default function ProposeNotes() {
   const [currentFileName, setCurrentFileName] = useState('');
 
   const [note, setNote] = useState('# Proposal');
-  const [isPreview, setIsPreview] = useState(false);
 
   const [user] = useAuthState(auth);
 
@@ -162,20 +158,9 @@ export default function ProposeNotes() {
             <Box></Box>
             <Box></Box>
             <Box></Box>
-            <HStack w="100%" justify={'center'}>
-              <Button w="50%" onClick={propose} colorScheme={'messenger'}>
-                Propose
-              </Button>
-              <Button
-                w="50%"
-                colorScheme={'messenger'}
-                onClick={() => {
-                  setIsPreview(!isPreview);
-                }}
-              >
-                {isPreview ? 'Hide' : 'Show'} Preview
-              </Button>
-            </HStack>
+            <Button w="100%" onClick={propose} colorScheme={'messenger'}>
+              Propose
+            </Button>
             <FormLabel
               bg="messenger.500"
               p={2}

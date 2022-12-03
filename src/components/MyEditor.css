@@ -1,0 +1,31 @@
+.ck-editor__editable_inline {
+  min-height: 500px;
+}
+
+ol {
+  all: revert;
+}
+
+ol * {
+  all: revert;
+}
+
+ul {
+  all: revert;
+}
+
+h1 {
+  all: revert;
+}
+
+h2 {
+  all: revert;
+}
+
+h3 {
+  all: revert;
+}
+
+h4 {
+  all: revert;
+}
