@@ -13,7 +13,6 @@ import EditProposal from './routes/EditProposal.jsx';
 import AllProposals from './routes/AllProposals.jsx';
 import View from './routes/View.jsx';
 import Home from './routes/Home.jsx';
-import MyEditor from './components/MyEditor.jsx';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
