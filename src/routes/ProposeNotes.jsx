@@ -113,7 +113,7 @@ export default function ProposeNotes() {
     <>
       <Navbar />
       <Grid
-        templateColumns={{ base: 'repeat(3, 1fr)', lg: 'repeat(7, 1fr)' }}
+        templateColumns={{ base: 'repeat(3, 1fr)', lg: 'repeat(5, 1fr)' }}
         height="93vh"
         w="100%"
         mt={2}
@@ -191,7 +191,7 @@ export default function ProposeNotes() {
             )}
           </VStack>
         </GridItem>
-        <GridItem colSpan={{ base: 2, lg: 6 }} h="93vh">
+        <GridItem colSpan={{ base: 2, lg: 4 }} h="93vh">
           <MyEditor
             setText={setNote}
             initialValue="<p>Enter proposal text here...</p>"
