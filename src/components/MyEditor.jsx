@@ -3,11 +3,11 @@ import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import './MyEditor.css';
 
-const MyEditor = ({ setText }) => {
+const MyEditor = ({ setText, initialValue }) => {
   return (
     <CKEditor
       editor={Editor}
-      data="<p>Enter proposal text here...</p>"
+      data={initialValue}
       onReady={editor => {
         // You can store the "editor" and use when it is needed.
         console.log('Editor is ready to use!', editor);
