@@ -1,5 +1,4 @@
 import {
-  Flex,
   Select,
   Text,
   VStack,
@@ -7,7 +6,6 @@ import {
   Input,
   Button,
   Box,
-  Textarea,
   Grid,
   GridItem,
   useToast,
@@ -20,8 +18,8 @@ import CenteredSpinner from '../components/CenteredSpinner';
 import { Navbar } from '../components/Navbar';
 import { auth, db } from '../firebase-config';
 import { SUBJECT_SHORTHAND } from '../utils';
-import Markdown from '../components/Markdown';
 import { query, where, getDocs } from 'firebase/firestore';
+import MyEditor from '../components/MyEditor';
 
 export default function EditProposal() {
   const { id } = useParams();
@@ -29,7 +27,6 @@ export default function EditProposal() {
   const organizerRef = collection(db, 'organizers');
 
   const [data, setData] = useState();
-  const [isPreview, setIsPreview] = useState(false);
   const [note, setNote] = useState();
 
   const topicRef = useRef();
@@ -153,20 +150,9 @@ export default function EditProposal() {
                 <Box></Box>
                 <Box></Box>
                 <Box></Box>
-                <HStack w="100%" justify={'center'}>
-                  <Button onClick={edit} w="50%" colorScheme={'messenger'}>
-                    Confirm
-                  </Button>
-                  <Button
-                    colorScheme={'messenger'}
-                    onClick={() => {
-                      setIsPreview(!isPreview);
-                    }}
-                    w="50%"
-                  >
-                    {isPreview ? 'Hide' : 'Show'} Preview
-                  </Button>
-                </HStack>
+                <Button onClick={edit} w="100%" colorScheme={'messenger'}>
+                  Confirm
+                </Button>
                 <FormLabel
                   bg="messenger.500"
                   p={2}
@@ -191,29 +177,7 @@ export default function EditProposal() {
               </VStack>
             </GridItem>
             <GridItem colSpan={{ base: 2, lg: 6 }}>
-              <Flex flexDirection="column" align="center">
-                {!isPreview && (
-                  <Textarea
-                    w="100%"
-                    h="93vh"
-                    onChange={e => setNote(e.target.value)}
-                    value={note}
-                    borderRadius="none"
-                    borderTop={'none'}
-                  />
-                )}
-                {isPreview && (
-                  <Box
-                    w="100%"
-                    h="93vh"
-                    bg={'gray.50'}
-                    borderRadius="none"
-                    borderTop={'none'}
-                  >
-                    <Markdown>{note}</Markdown>
-                  </Box>
-                )}
-              </Flex>
+              <MyEditor setText={setNote} initialValue={note} />
             </GridItem>
           </Grid>
         </>
