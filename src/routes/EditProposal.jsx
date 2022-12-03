@@ -97,7 +97,7 @@ export default function EditProposal() {
       {data ? (
         <>
           <Grid
-            templateColumns={{ base: 'repeat(3, 1fr)', lg: 'repeat(7, 1fr)' }}
+            templateColumns={{ base: 'repeat(3, 1fr)', lg: 'repeat(5, 1fr)' }}
             height="93vh"
             w="100%"
             mt={2}
@@ -176,7 +176,7 @@ export default function EditProposal() {
                 </FormLabel>
               </VStack>
             </GridItem>
-            <GridItem colSpan={{ base: 2, lg: 6 }}>
+            <GridItem colSpan={{ base: 2, lg: 4 }}>
               <MyEditor setText={setNote} initialValue={note} />
             </GridItem>
           </Grid>
