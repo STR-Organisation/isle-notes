@@ -1,0 +1,33 @@
+.note {
+  all: revert;
+}
+
+.note * {
+  all: revert;
+}
+
+.note blockquote {
+  font-size: 1em;
+  width: max-content;
+  font-family: Open Sans;
+  font-style: italic;
+  color: #555555;
+  padding: 0.2em 30px 0.2em 30px;
+  border-left: 8px solid #78c0a8;
+  line-height: 1;
+  position: relative;
+  background: #ededed;
+}
+
+.note blockquote::before {
+  font-family: Arial;
+  color: #78c0a8;
+  font-size: 4em;
+  position: absolute;
+  left: 10px;
+  top: -10px;
+}
+
+.note a {
+  all: revert;
+}

@@ -20,6 +20,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
 import MyEditor from '../components/MyEditor';
+import '../components/MyEditor';
 
 export default function ProposeNotes() {
   const toast = useToast();

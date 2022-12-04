@@ -8,11 +8,10 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import React, { useEffect, useRef, useState } from 'react';
-import { Router, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
 import { getKeyByValue, getProposalURL, SUBJECT_SHORTHAND } from '../utils';
 import TopicText from '../components/TopicText';
-import Markdown from '../components/Markdown';
 import {
   collection,
   doc,
@@ -26,6 +25,7 @@ import { auth, db } from '../firebase-config';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { CloseIcon, DownloadIcon, EditIcon } from '@chakra-ui/icons';
 import { Link as RouterLink } from 'react-router-dom';
+import FormatNotes from '../components/FormatNotes';
 
 export default function SubjectNotes() {
   const { subject } = useParams();
@@ -199,9 +199,7 @@ export default function SubjectNotes() {
           })}
         </Flex>
         <Box maxH="93vh" w="100%" pl={5}>
-          <div
-            dangerouslySetInnerHTML={{ __html: topics.current[currTopic] }}
-          ></div>
+          <FormatNotes note={topics.current[currTopic]} />
         </Box>
       </Flex>
     </>

@@ -2,30 +2,6 @@
   height: 87vh;
 }
 
-ol {
-  all: revert;
-}
-
-ol * {
-  all: revert;
-}
-
-ul {
-  all: revert;
-}
-
-h1 {
-  all: revert;
-}
-
-h2 {
-  all: revert;
-}
-
-h3 {
-  all: revert;
-}
-
-h4 {
+.ck-editor__editable_inline * {
   all: revert;
 }
