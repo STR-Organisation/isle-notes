@@ -1,6 +1,6 @@
 {
-  "homepage": "http://Advayp.github.io/aia-website",
-  "name": "aia-website",
+  "homepage": "http://STR-Organisation.github.io/isle-notes",
+  "name": "isle-notes",
   "version": "0.1.0",
   "dependencies": {
     "@chakra-ui/icons": "^2.0.12",
