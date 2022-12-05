@@ -94,7 +94,7 @@ export default function SubjectNotes() {
 
   useEffect(() => {
     topics.current = {
-      default: `# ${fullName}`,
+      default: `<h2>${fullName}</h2>`,
     };
     const fetchProposals = async () => {
       const data = await getDocs(q);

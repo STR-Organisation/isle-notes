@@ -193,10 +193,7 @@ export default function ProposeNotes() {
           </VStack>
         </GridItem>
         <GridItem colSpan={{ base: 2, lg: 4 }} h="93vh">
-          <MyEditor
-            setText={setNote}
-            initialValue="<p>Enter proposal text here...</p>"
-          />
+          <MyEditor setText={setNote} initialValue="" />
         </GridItem>
       </Grid>
     </>
