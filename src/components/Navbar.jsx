@@ -42,7 +42,7 @@ export const Navbar = () => {
       <Flex
         align={'center'}
         width="100vw"
-        height={'7vh'}
+        height={'20'}
         position="sticky"
         as="header"
         borderBottomWidth={'1.5px'}
