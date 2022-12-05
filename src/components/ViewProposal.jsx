@@ -57,8 +57,8 @@ export default function ViewProposal({ proposal, onDelete, ...props }) {
   return (
     <>
       <Flex
-        w="50ch"
-        h={'13vh'}
+        w="md"
+        h={'xxs'}
         border="1px"
         borderColor={'gray.200'}
         m={2}
