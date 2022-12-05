@@ -91,3 +91,6 @@ export const formatEmail = email => {
 export const getProposalURL = async fileName => {
   return await getDownloadURL(ref(storage, `proposals/${fileName}`));
 };
+
+export const signUpImage =
+  'https://images-ext-2.discordapp.net/external/bgPs0oqCsGt-ZyL09X5WYW7JIM4wl5CwzJ4vbeqMqks/https/upload.wikimedia.org/wikipedia/commons/8/8f/Bachalpsee_reflection.jpg?width=1871&height=1403';
