@@ -16,10 +16,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import CenteredSpinner from '../components/CenteredSpinner';
 import { Navbar } from '../components/Navbar';
-import { auth, db } from '../firebase-config';
+import { auth, db, storage } from '../firebase-config';
 import { SUBJECT_SHORTHAND } from '../utils';
 import { query, where, getDocs } from 'firebase/firestore';
 import MyEditor from '../components/MyEditor';
+import { v4 } from 'uuid';
+import { ref, uploadBytes } from 'firebase/storage';
 
 export default function EditProposal() {
   const { id } = useParams();
@@ -28,9 +30,11 @@ export default function EditProposal() {
 
   const [data, setData] = useState();
   const [note, setNote] = useState();
+  const [currentFileName, setCurrentFileName] = useState();
 
   const topicRef = useRef();
   const classRef = useRef();
+  const fileRef = useRef();
 
   const navigate = useNavigate();
 
@@ -70,6 +74,14 @@ export default function EditProposal() {
 
   const edit = async () => {
     console.log(classRef.current.value);
+
+    let fileName = '';
+    if (fileRef.current.files.length !== 0) {
+      fileName = v4() + currentFileName;
+      const proposalRef = ref(storage, `proposals/${fileName}`);
+      await uploadBytes(proposalRef, fileRef.current.files[0]);
+    }
+
     const newData = {
       topic: topicRef.current.value,
       className: classRef.current.value,
@@ -78,6 +90,7 @@ export default function EditProposal() {
       viewed: false,
       uid: auth.currentUser.uid,
       email: auth.currentUser.email,
+      fileName,
     };
     console.log(newData);
     const docRef = doc(db, 'proposals', id);
@@ -171,9 +184,16 @@ export default function EditProposal() {
                     type="file"
                     display={'none'}
                     accept=".docx,.md,.doc"
+                    ref={fileRef}
+                    onChange={e => {
+                      setCurrentFileName(e.target.files[0].name);
+                    }}
                   />
                   File Upload
                 </FormLabel>
+                {currentFileName && (
+                  <Text color="gray.500">File Name: {currentFileName}</Text>
+                )}
               </VStack>
             </GridItem>
             <GridItem colSpan={{ base: 2, lg: 4 }}>
