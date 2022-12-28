@@ -127,14 +127,6 @@ export default function ProposeNotes() {
           pr={3}
         >
           <VStack align={'center'}>
-            <Text
-              fontSize={'xl'}
-              fontWeight="bold"
-              mb={2}
-              color="messenger.500"
-            >
-              Notes Metadata
-            </Text>
             <HStack>
               <Text fontWeight={'semibold'} fontSize="lg" mr={7}>
                 Class
