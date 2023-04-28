@@ -26,6 +26,7 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { CloseIcon, DownloadIcon, EditIcon } from '@chakra-ui/icons';
 import { Link as RouterLink } from 'react-router-dom';
 import FormatNotes from '../components/FormatNotes';
+import CustomIconButton from '../components/CustomIconButton';
 
 export default function SubjectNotes() {
   const { subject } = useParams();
@@ -144,21 +145,16 @@ export default function SubjectNotes() {
         {topicsWithFiles.current[currTopic] && (
           <>
             <Link href={downloadURLS.current[currTopic]} download>
-              <IconButton icon={<DownloadIcon />} colorScheme={'messenger'} />
+              <CustomIconButton icon={<DownloadIcon />} />
             </Link>
           </>
         )}
         {isOrganizer && (
           <>
             <RouterLink to={topicRoutes.current[currTopic]}>
-              <IconButton icon={<EditIcon />} colorScheme="messenger" />
+              <CustomIconButton icon={<EditIcon />} />
             </RouterLink>
-            <IconButton
-              fontSize="xs"
-              icon={<CloseIcon />}
-              colorScheme="messenger"
-              onClick={rejectCurrentProposal}
-            />
+            <CustomIconButton icon={<CloseIcon />} />
           </>
         )}
       </ButtonGroup>

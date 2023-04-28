@@ -91,7 +91,7 @@ export default function Home() {
             ) : (
               <RouterLink to="/notes/propose">
                 <Flex>
-                  <Button w="80%" mx={'auto'} mt={2} colorScheme={'messenger'}>
+                  <Button w="80%" mx={'auto'} mt={2} variant={'primary'}>
                     New Proposal
                   </Button>
                 </Flex>

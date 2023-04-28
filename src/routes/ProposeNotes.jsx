@@ -151,11 +151,11 @@ export default function ProposeNotes() {
             <Box></Box>
             <Box></Box>
             <Box></Box>
-            <Button w="100%" onClick={propose} colorScheme={'messenger'}>
+            <Button w="100%" onClick={propose} variant={'primary'}>
               Propose
             </Button>
             <FormLabel
-              bg="messenger.500"
+              bg="brand.secondaryAccent"
               p={2}
               color="white"
               textAlign={'center'}
@@ -163,7 +163,7 @@ export default function ProposeNotes() {
               w="100%"
               borderRadius={'md'}
               _hover={{
-                backgroundColor: 'messenger.600',
+                backgroundColor: 'brand.secondaryAccentGradient',
               }}
               cursor="pointer"
             >

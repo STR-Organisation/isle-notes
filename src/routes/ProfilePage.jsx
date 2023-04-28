@@ -144,7 +144,7 @@ export default function ProfilePage() {
           <Divider w={'40vw'} mt={4} />
 
           <VStack align={'flex-start'} mt={2} w={'40vw'}>
-            <Heading fontSize={'xl'} color="messenger.500">
+            <Heading fontSize={'xl'} color="brand.secondaryAccent">
               Basic Info
             </Heading>
 
@@ -197,7 +197,7 @@ export default function ProfilePage() {
           <Divider w={'40vw'} mt={2} mb={2} />
 
           <VStack w={'40vw'} mt={2} align="flex-start">
-            <Heading fontSize={'xl'} color="messenger.500">
+            <Heading fontSize={'xl'} color="brand.secondaryAccent">
               IB Information
             </Heading>
             <HStack>
@@ -249,14 +249,14 @@ export default function ProfilePage() {
             </HStack>
           </VStack>
           <Divider w={'40vw'} mt={2} />
-          <Button onClick={updateUser} colorScheme={'messenger'} mt={8}>
+          <Button onClick={updateUser} variant={'primary'} mt={8}>
             Update Information
           </Button>
         </Flex>
       ) : (
         <>
           <Flex w={'100%'} justify="center">
-            <Spinner color="messenger.500" />
+            <Spinner color="brand.primaryAccent" />
           </Flex>
         </>
       )}
