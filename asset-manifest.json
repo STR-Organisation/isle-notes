@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/isle-notes/static/css/main.03d7437a.css",
-    "main.js": "/isle-notes/static/js/main.3ff3aea5.js",
+    "main.js": "/isle-notes/static/js/main.14eba3f1.js",
     "static/media/KaTeX_AMS-Regular.ttf": "/isle-notes/static/media/KaTeX_AMS-Regular.853be92419a6c3766b9a.ttf",
     "static/media/KaTeX_Main-Regular.ttf": "/isle-notes/static/media/KaTeX_Main-Regular.9eba1d77abcf2aa6e94e.ttf",
     "static/media/KaTeX_Main-Bold.ttf": "/isle-notes/static/media/KaTeX_Main-Bold.8169508bf58f8bd92ad8.ttf",
@@ -64,10 +64,10 @@
     "static/media/KaTeX_Size3-Regular.woff2": "/isle-notes/static/media/KaTeX_Size3-Regular.e1951519f6f0596f7356.woff2",
     "index.html": "/isle-notes/index.html",
     "main.03d7437a.css.map": "/isle-notes/static/css/main.03d7437a.css.map",
-    "main.3ff3aea5.js.map": "/isle-notes/static/js/main.3ff3aea5.js.map"
+    "main.14eba3f1.js.map": "/isle-notes/static/js/main.14eba3f1.js.map"
   },
   "entrypoints": [
     "static/css/main.03d7437a.css",
-    "static/js/main.3ff3aea5.js"
+    "static/js/main.14eba3f1.js"
   ]
 }
